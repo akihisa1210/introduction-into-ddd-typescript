@@ -1,5 +1,5 @@
 export class UserId {
-  readonly value: string;
+  private readonly value: string;
 
   constructor(value: string) {
     if (value === null) {

@@ -3,6 +3,7 @@ import { Money } from './Money';
 import { User } from './User';
 import { UserName } from './UserName';
 import { createUser } from './createUser';
+import { UserService } from './UserService';
 
 const fullname = new FullName('john', 'smith');
 console.log(fullname.lastName);
@@ -33,3 +34,8 @@ const user = new User(userName);
 console.log(user);
 
 console.log(createUser('Joe!'));
+
+// Domain Service
+const userService = new UserService();
+const duplicateCheckResult = userService.exists(user);
+console.log(duplicateCheckResult);

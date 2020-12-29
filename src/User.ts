@@ -1,28 +1,33 @@
 import { UserId } from './UserId';
 import { UserName } from './UserName';
+import { v4 as uuidv4 } from 'uuid';
 
 export class User {
-  readonly id: UserId;
-  name: UserName;
+  private readonly _id: UserId;
+  private _name: UserName;
 
-  constructor(id: UserId, name: UserName) {
-    if (id === null) {
-      throw new Error('Id is null.');
-    }
-
+  constructor(name: UserName) {
     if (name === null) {
       throw new Error('Name is null.');
     }
 
-    this.id = id;
-    this.name = name;
+    this._id = new UserId(uuidv4());
+    this._name = name;
+  }
+
+  get id(): UserId {
+    return this._id;
+  }
+
+  get name(): UserName {
+    return this._name;
   }
 
   changeName(name: UserName): void {
-    this.name = name;
+    this._name = name;
   }
 
   equals(other: User): boolean {
-    return this.id === other.id;
+    return this._id === other._id;
   }
 }
