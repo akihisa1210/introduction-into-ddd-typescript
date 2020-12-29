@@ -2,11 +2,15 @@ import { UserId } from './UserId';
 import { UserName } from './UserName';
 
 export class User {
-  userId: UserId;
-  userName: UserName;
+  id: UserId;
+  name: UserName;
 
-  constructor(userName: UserName) {
-    this.userId = new UserId('dummy');
-    this.userName = userName;
+  constructor(name: UserName) {
+    this.id = new UserId('dummy');
+    this.name = name;
+  }
+
+  changeName(name: UserName): void {
+    this.name = name;
   }
 }
