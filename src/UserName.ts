@@ -11,4 +11,8 @@ export class UserName {
 
     this.value = value;
   }
+
+  get name(): string {
+    return this.value;
+  }
 }
