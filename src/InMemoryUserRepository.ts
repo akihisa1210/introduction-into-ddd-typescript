@@ -5,11 +5,11 @@ import { UserName } from './UserName';
 
 export class InMemoryUserRepository implements IUserRepository {
   public save(user: User): void {
-    console.log(`Save ${user.name.name}`);
+    console.log(`Save ${user.name}`);
   }
 
   public find(name: UserName): User | null {
-    console.log(`finding user: ${name.name}`);
+    console.log(`finding user: ${name}`);
     return null;
   }
 }

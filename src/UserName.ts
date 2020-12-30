@@ -12,7 +12,7 @@ export class UserName {
     this.value = value;
   }
 
-  get name(): string {
+  public toString(): string {
     return this.value;
   }
 }
