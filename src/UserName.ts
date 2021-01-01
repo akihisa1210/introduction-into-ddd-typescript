@@ -11,4 +11,8 @@ export class UserName {
 
     this.value = value;
   }
+
+  public toString(): string {
+    return this.value;
+  }
 }

@@ -1,9 +1,15 @@
 import { User } from './User';
+import { IUserRepository } from './IUserRepository';
 
 export class UserService {
-  exists(user: User): boolean {
-    // dummy
-    console.log(user);
-    return false;
+  private userRepository: IUserRepository;
+
+  constructor(userRepository: IUserRepository) {
+    this.userRepository = userRepository;
+  }
+
+  public exists(user: User): boolean {
+    const found = this.userRepository.find(user.name);
+    return found != null;
   }
 }
