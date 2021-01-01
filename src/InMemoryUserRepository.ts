@@ -12,4 +12,13 @@ export class InMemoryUserRepository implements IUserRepository {
     console.log(`finding user: ${name}`);
     return null;
   }
+
+  public findAll(): User[] | null {
+    console.log(`finding all users`);
+    return null;
+  }
+
+  public delete(user: User): void {
+    console.log(`Delete ${user.name}`);
+  }
 }
