@@ -1,6 +1,6 @@
 import { IUserRepository } from './IUserRepository';
 import { User } from './User';
-// import { UserId } from './UserId';
+import { UserId } from './UserId';
 import { UserName } from './UserName';
 
 export class InMemoryUserRepository implements IUserRepository {
@@ -8,7 +8,12 @@ export class InMemoryUserRepository implements IUserRepository {
     console.log(`Save ${user.name}`);
   }
 
-  public find(name: UserName): User | null {
+  public findById(id: UserId): User | null {
+    console.log(`finding user: ${id}`);
+    return null;
+  }
+
+  public findByName(name: UserName): User | null {
     console.log(`finding user: ${name}`);
     return null;
   }

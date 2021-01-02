@@ -1,6 +1,15 @@
-import { Program } from './Program';
+import { UserApplicationService } from './UserApplicationService';
 import { InMemoryUserRepository } from './InMemoryUserRepository';
+import { UserService } from './UserService';
 
 const inMemoryUserRepository = new InMemoryUserRepository();
-const program = new Program(inMemoryUserRepository);
-program.createUser('test user');
+const userService = new UserService(inMemoryUserRepository);
+const userApplicationService = new UserApplicationService(
+  inMemoryUserRepository,
+  userService,
+);
+
+console.log('---userApplicationService.register---');
+userApplicationService.register('test user');
+console.log('---userApplicationService.get---');
+userApplicationService.get('1');

@@ -1,12 +1,14 @@
 import { User } from './User';
+import { UserId } from './UserId';
 import { UserName } from './UserName';
 
-export interface IUserRepository {
+export type IUserRepository = {
   save(user: User): void;
 
-  find(name: UserName): User | null;
+  findById(id: UserId): User | null;
+  findByName(name: UserName): User | null;
 
   findAll(): User[] | null;
 
   delete(user: User): void;
-}
+};

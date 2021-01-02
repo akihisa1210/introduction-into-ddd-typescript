@@ -9,7 +9,7 @@ export class UserService {
   }
 
   public exists(user: User): boolean {
-    const found = this.userRepository.find(user.name);
+    const found = this.userRepository.findByName(user.name);
     return found != null;
   }
 }
