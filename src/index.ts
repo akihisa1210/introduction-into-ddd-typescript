@@ -13,3 +13,5 @@ console.log('---userApplicationService.register---');
 userApplicationService.register('test user');
 console.log('---userApplicationService.get---');
 userApplicationService.get('1');
+console.log('---userApplicationService.update---');
+userApplicationService.update('1', 'updated user');
