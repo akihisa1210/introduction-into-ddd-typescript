@@ -1,6 +1,7 @@
 import { IUserRepository } from './IUserRepository';
 import { User } from './User';
 import { UserData } from './UserData';
+import { UserDeleteCommand } from './UserDeleteCommand';
 import { UserId } from './UserId';
 import { UserName } from './UserName';
 import { UserService } from './UserService';
@@ -56,5 +57,16 @@ export class UserApplicationService {
     }
 
     this.userRepository.save(user);
+  }
+
+  delete(command: UserDeleteCommand): void {
+    const targetId = new UserId(command.id);
+    const user = this.userRepository.findById(targetId);
+
+    if (user === null) {
+      throw new Error('User not found');
+    }
+
+    this.userRepository.delete(user);
   }
 }
