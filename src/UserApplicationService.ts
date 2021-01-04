@@ -4,6 +4,7 @@ import { UserData } from './UserData';
 import { UserId } from './UserId';
 import { UserName } from './UserName';
 import { UserService } from './UserService';
+import { UserUpdateCommand } from './UserUpdateCommand';
 
 export class UserApplicationService {
   private readonly userRepository: IUserRepository;
@@ -37,19 +38,21 @@ export class UserApplicationService {
     return userData;
   }
 
-  update(userId: string, name: string): void {
-    const targetId = new UserId(userId);
+  update(command: UserUpdateCommand): void {
+    const targetId = new UserId(command.id);
     const user = this.userRepository.findById(targetId);
 
     if (user === null) {
       throw new Error('User not found');
     }
 
-    const newUserName = new UserName(name);
-
-    user.changeName(newUserName);
-    if (this.userService.exists(user)) {
-      throw new Error('User already exists');
+    const name = command.name;
+    if (name !== null) {
+      const newUserName = new UserName(name);
+      user.changeName(newUserName);
+      if (this.userService.exists(user)) {
+        throw new Error('User already exists');
+      }
     }
 
     this.userRepository.save(user);

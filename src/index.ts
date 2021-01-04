@@ -1,6 +1,7 @@
 import { UserApplicationService } from './UserApplicationService';
 import { InMemoryUserRepository } from './InMemoryUserRepository';
 import { UserService } from './UserService';
+import { UserUpdateCommand } from './UserUpdateCommand';
 
 const inMemoryUserRepository = new InMemoryUserRepository();
 const userService = new UserService(inMemoryUserRepository);
@@ -14,4 +15,5 @@ userApplicationService.register('test user');
 console.log('---userApplicationService.get---');
 userApplicationService.get('1');
 console.log('---userApplicationService.update---');
-userApplicationService.update('1', 'updated user');
+const userUpdateCommand = new UserUpdateCommand('1', 'updated usre');
+userApplicationService.update(userUpdateCommand);
