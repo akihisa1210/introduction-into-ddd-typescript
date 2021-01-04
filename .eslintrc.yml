@@ -13,4 +13,7 @@ parserOptions:
   project: './tsconfig.eslint.json'
 plugins:
   - '@typescript-eslint'
-rules: {}
+rules:
+  'complexity':
+    - error
+    - 10
