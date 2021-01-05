@@ -13,4 +13,9 @@ parserOptions:
   project: './tsconfig.eslint.json'
 plugins:
   - '@typescript-eslint'
-rules: {}
+  - 'lcom'
+rules:
+  'complexity':
+    - error
+    - 10
+  # 'lcom/lcom4': 'warn'

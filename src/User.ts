@@ -6,12 +6,13 @@ export class User {
   private readonly _id: UserId;
   private _name: UserName;
 
-  constructor(name: UserName) {
+  constructor(name: UserName, id?: UserId) {
     if (name === null) {
       throw new Error('Name is null.');
     }
 
-    this._id = new UserId(uuidv4());
+    id ? (this._id = id) : (this._id = new UserId(uuidv4()));
+
     this._name = name;
   }
 
