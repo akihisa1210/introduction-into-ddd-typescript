@@ -1,4 +1,4 @@
-import { IUserRepository } from '../../IUserRepository';
+import { IUserRepository } from '../../Repository/User/IUserRepository';
 import { UserDeleteCommand } from '../../UserDeleteCommand';
 import { UserId } from '../../UserId';
 import { injectable, inject } from 'tsyringe';

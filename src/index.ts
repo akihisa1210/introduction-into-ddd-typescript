@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 
-import { InMemoryUserRepository } from './InMemoryUserRepository';
+import { InMemoryUserRepository } from './Repository/User/InMemoryUserRepository';
 import { UserService } from './UserService';
 import { UserUpdateCommand } from './UserUpdateCommand';
 import { UserDeleteCommand } from './UserDeleteCommand';
@@ -10,7 +10,7 @@ import { UserRegisterService } from './Application/User/UserRegisterService';
 import { UserGetInfoService } from './Application/User/UserGetInfoService';
 import { UserUpdateService } from './Application/User/UserUpdateService';
 import { UserDeleteService } from './Application/User/UserDeleteService';
-import { InMemoryUserRepositoryForProduction } from './InMemoryUserRepositoryForProduction';
+import { InMemoryUserRepositoryForProduction } from './Repository/User/InMemoryUserRepositoryForProduction';
 
 // container.register('IUserRepository', {
 //   useClass: InMemoryUserRepository,
