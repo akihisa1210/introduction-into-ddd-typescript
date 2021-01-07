@@ -1,10 +1,12 @@
 import { User } from './User';
 import { IUserRepository } from './IUserRepository';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class UserService {
   private userRepository: IUserRepository;
 
-  constructor(userRepository: IUserRepository) {
+  constructor(@inject('IUserRepository') userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
 

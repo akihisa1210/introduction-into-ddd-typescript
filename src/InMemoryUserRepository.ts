@@ -2,7 +2,9 @@ import { IUserRepository } from './IUserRepository';
 import { User } from './User';
 import { UserId } from './UserId';
 import { UserName } from './UserName';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class InMemoryUserRepository implements IUserRepository {
   public save(user: User): void {
     console.log(`Save ${user.name}`);
