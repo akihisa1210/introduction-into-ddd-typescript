@@ -1,11 +1,13 @@
 import { IUserRepository } from '../../IUserRepository';
 import { UserData } from '../../UserData';
 import { UserId } from '../../UserId';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class UserGetInfoService {
   private readonly userRepository: IUserRepository;
 
-  constructor(userRepository: IUserRepository) {
+  constructor(@inject('IUserRepository') userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
 

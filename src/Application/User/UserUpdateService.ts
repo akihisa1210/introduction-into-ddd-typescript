@@ -3,12 +3,17 @@ import { UserId } from '../../UserId';
 import { UserName } from '../../UserName';
 import { UserService } from '../../UserService';
 import { UserUpdateCommand } from '../../UserUpdateCommand';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class UserUpdateService {
   private readonly userRepository: IUserRepository;
   private readonly userService: UserService;
 
-  constructor(userRepository: IUserRepository, userService: UserService) {
+  constructor(
+    @inject('IUserRepository') userRepository: IUserRepository,
+    @inject('UserService') userService: UserService,
+  ) {
     this.userRepository = userRepository;
     this.userService = userService;
   }

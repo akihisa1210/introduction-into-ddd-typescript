@@ -24,22 +24,25 @@ console.log('---UserRegisterService---');
 const userRegisterService: UserRegisterService = container.resolve(
   UserRegisterService,
 );
-const userRegistercommand = new UserRegisterCommand('new user');
+const userRegistercommand = new UserRegisterCommand('NewUser');
 userRegisterService.handle(userRegistercommand);
 
-// console.log('---UserGetInfoService---');
-// const userGetInfoService = new UserGetInfoService(inMemoryUserRepository);
-// userGetInfoService.handle('1');
+console.log('---UserGetInfoService---');
+const userGetInfoService: UserGetInfoService = container.resolve(
+  UserGetInfoService,
+);
+userGetInfoService.handle('1');
 
-// console.log('---UserUpdateService---');
-// const userUpdateService = new UserUpdateService(
-//   inMemoryUserRepository,
-//   userService,
-// );
-// const userUpdateCommand = new UserUpdateCommand('1', 'updated usre');
-// userUpdateService.handle(userUpdateCommand);
+console.log('---UserUpdateService---');
+const userUpdateService: UserUpdateService = container.resolve(
+  UserUpdateService,
+);
+const userUpdateCommand = new UserUpdateCommand('2', 'NewName');
+userUpdateService.handle(userUpdateCommand);
 
-// console.log('---UserDeleteService---');
-// const userDeleteService = new UserDeleteService(inMemoryUserRepository);
-// const userDeleteCommand = new UserDeleteCommand('1');
-// userDeleteService.handle(userDeleteCommand);
+console.log('---UserDeleteService---');
+const userDeleteService: UserDeleteService = container.resolve(
+  UserDeleteService,
+);
+const userDeleteCommand = new UserDeleteCommand('2');
+userDeleteService.handle(userDeleteCommand);
