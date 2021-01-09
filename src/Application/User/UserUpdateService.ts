@@ -1,8 +1,8 @@
 import { IUserRepository } from '../../Repository/User/IUserRepository';
-import { UserId } from '../../UserId';
-import { UserName } from '../../UserName';
-import { UserService } from '../../UserService';
-import { UserUpdateCommand } from '../../UserUpdateCommand';
+import { UserId } from '../../Domain/User/UserId';
+import { UserName } from '../../Domain/User/UserName';
+import { UserService } from '../../Domain/User/UserService';
+import { UserUpdateCommand } from './UserUpdateCommand';
 import { injectable, inject } from 'tsyringe';
 
 @injectable()

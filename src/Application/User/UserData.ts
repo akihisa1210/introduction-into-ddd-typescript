@@ -1,4 +1,4 @@
-import { User } from './User';
+import { User } from '../../Domain/User/User';
 
 export class UserData {
   private readonly _id;
