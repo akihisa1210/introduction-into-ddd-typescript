@@ -1,6 +1,6 @@
 import { IUserRepository } from '../../Repository/User/IUserRepository';
-import { UserDeleteCommand } from '../../UserDeleteCommand';
-import { UserId } from '../../UserId';
+import { UserDeleteCommand } from './UserDeleteCommand';
+import { UserId } from '../../Domain/User/UserId';
 import { injectable, inject } from 'tsyringe';
 
 @injectable()

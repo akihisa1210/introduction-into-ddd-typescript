@@ -2,10 +2,10 @@ import 'reflect-metadata';
 import { container } from 'tsyringe';
 
 import { InMemoryUserRepository } from './Repository/User/InMemoryUserRepository';
-import { UserService } from './UserService';
-import { UserUpdateCommand } from './UserUpdateCommand';
-import { UserDeleteCommand } from './UserDeleteCommand';
-import { UserRegisterCommand } from './UserRegisterCommand';
+import { UserService } from './Domain/User/UserService';
+import { UserUpdateCommand } from './Application/User/UserUpdateCommand';
+import { UserDeleteCommand } from './Application/User/UserDeleteCommand';
+import { UserRegisterCommand } from './Application/User/UserRegisterCommand';
 import { UserRegisterService } from './Application/User/UserRegisterService';
 import { UserGetInfoService } from './Application/User/UserGetInfoService';
 import { UserUpdateService } from './Application/User/UserUpdateService';
