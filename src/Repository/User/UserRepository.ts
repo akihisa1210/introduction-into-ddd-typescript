@@ -81,12 +81,32 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  public findAll(): User[] | null {
-    console.log(`finding all users for production!`);
-    return [new User(new UserName('User1')), new User(new UserName('User2'))];
+  public async findAll(): Promise<User[]> {
+    const client = await MongoClient.connect(MONGODDB_URI, {
+      useUnifiedTopology: true,
+    });
+
+    const docs = await client.db('app').collection('users').find({}).toArray();
+
+    await client.close();
+
+    const users: User[] = [];
+
+    for (const doc of docs) {
+      users.push(new User(new UserName(doc.name), new UserId(doc.id)));
+    }
+    return new Promise((resolve) => {
+      resolve(users);
+    });
   }
 
-  public delete(user: User): void {
-    console.log(`Delete ${user.name} for production!`);
+  public async delete(user: User): Promise<void> {
+    const client = await MongoClient.connect(MONGODDB_URI, {
+      useUnifiedTopology: true,
+    });
+
+    await client.db('app').collection('users').deleteOne({ id: user.id.value });
+
+    await client.close();
   }
 }

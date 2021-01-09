@@ -8,7 +8,7 @@ export type IUserRepository = {
   findById(id: UserId): Promise<User | null>;
   findByName(name: UserName): Promise<User | null>;
 
-  findAll(): User[] | null;
+  findAll(): Promise<User[]>;
 
   delete(user: User): void;
 };

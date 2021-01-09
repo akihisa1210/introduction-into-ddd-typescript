@@ -23,6 +23,7 @@ container.register('UserService', { useClass: UserService });
 
 const main = async () => {
   console.log('---UserRegisterService---');
+
   const userRegisterService: UserRegisterService = container.resolve(
     UserRegisterService,
   );
@@ -35,12 +36,14 @@ const main = async () => {
   }
 
   console.log('---UserGetInfoService---');
+
   const userGetInfoService: UserGetInfoService = container.resolve(
     UserGetInfoService,
   );
   userGetInfoService.handle('1');
 
   console.log('---UserUpdateService---');
+
   const userUpdateService: UserUpdateService = container.resolve(
     UserUpdateService,
   );
@@ -53,6 +56,7 @@ const main = async () => {
   }
 
   console.log('---UserDeleteService---');
+
   const userDeleteService: UserDeleteService = container.resolve(
     UserDeleteService,
   );
