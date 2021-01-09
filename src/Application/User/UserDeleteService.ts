@@ -1,4 +1,4 @@
-import { IUserRepository } from '../../IUserRepository';
+import { IUserRepository } from '../../Repository/User/IUserRepository';
 import { UserDeleteCommand } from '../../UserDeleteCommand';
 import { UserId } from '../../UserId';
 import { injectable, inject } from 'tsyringe';
@@ -11,9 +11,9 @@ export class UserDeleteService {
     this.userRepository = userRepository;
   }
 
-  handle(command: UserDeleteCommand): void {
+  async handle(command: UserDeleteCommand): Promise<void> {
     const userId = new UserId(command.id);
-    const user = this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId);
 
     if (user === null) {
       throw new Error('User not found');

@@ -1,4 +1,4 @@
-import { IUserRepository } from '../../IUserRepository';
+import { IUserRepository } from '../../Repository/User/IUserRepository';
 import { UserId } from '../../UserId';
 import { UserName } from '../../UserName';
 import { UserService } from '../../UserService';
@@ -18,9 +18,9 @@ export class UserUpdateService {
     this.userService = userService;
   }
 
-  handle(command: UserUpdateCommand): void {
+  async handle(command: UserUpdateCommand): Promise<void> {
     const targetId = new UserId(command.id);
-    const user = this.userRepository.findById(targetId);
+    const user = await this.userRepository.findById(targetId);
 
     if (user === null) {
       throw new Error('User not found');

@@ -1,4 +1,4 @@
-import { IUserRepository } from '../../IUserRepository';
+import { IUserRepository } from '../../Repository/User/IUserRepository';
 import { UserData } from '../../UserData';
 import { UserId } from '../../UserId';
 import { injectable, inject } from 'tsyringe';
@@ -11,9 +11,9 @@ export class UserGetInfoService {
     this.userRepository = userRepository;
   }
 
-  handle(userId: string): UserData | null {
+  async handle(userId: string): Promise<UserData | null> {
     const targetId = new UserId(userId);
-    const user = this.userRepository.findById(targetId);
+    const user = await this.userRepository.findById(targetId);
 
     if (user === null) {
       return null;
