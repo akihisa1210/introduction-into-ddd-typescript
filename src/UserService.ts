@@ -10,8 +10,8 @@ export class UserService {
     this.userRepository = userRepository;
   }
 
-  public exists(user: User): boolean {
-    const found = this.userRepository.findByName(user.name);
-    return found != null;
+  public async exists(user: User): Promise<boolean> {
+    const found = await this.userRepository.findByName(user.name);
+    return found !== null;
   }
 }

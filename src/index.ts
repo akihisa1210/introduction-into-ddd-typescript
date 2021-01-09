@@ -21,29 +21,33 @@ container.register('IUserRepository', {
 });
 container.register('UserService', { useClass: UserService });
 
-console.log('---UserRegisterService---');
-const userRegisterService: UserRegisterService = container.resolve(
-  UserRegisterService,
-);
-const userRegistercommand = new UserRegisterCommand('NewUser');
-userRegisterService.handle(userRegistercommand);
+const main = async () => {
+  console.log('---UserRegisterService---');
+  const userRegisterService: UserRegisterService = container.resolve(
+    UserRegisterService,
+  );
+  const userRegistercommand = new UserRegisterCommand('NewUser');
+  await userRegisterService.handle(userRegistercommand);
+};
 
-console.log('---UserGetInfoService---');
-const userGetInfoService: UserGetInfoService = container.resolve(
-  UserGetInfoService,
-);
-userGetInfoService.handle('1');
+main();
 
-console.log('---UserUpdateService---');
-const userUpdateService: UserUpdateService = container.resolve(
-  UserUpdateService,
-);
-const userUpdateCommand = new UserUpdateCommand('2', 'NewName');
-userUpdateService.handle(userUpdateCommand);
+// console.log('---UserGetInfoService---');
+// const userGetInfoService: UserGetInfoService = container.resolve(
+//   UserGetInfoService,
+// );
+// userGetInfoService.handle('1');
 
-console.log('---UserDeleteService---');
-const userDeleteService: UserDeleteService = container.resolve(
-  UserDeleteService,
-);
-const userDeleteCommand = new UserDeleteCommand('2');
-userDeleteService.handle(userDeleteCommand);
+// console.log('---UserUpdateService---');
+// const userUpdateService: UserUpdateService = container.resolve(
+//   UserUpdateService,
+// );
+// const userUpdateCommand = new UserUpdateCommand('2', 'NewName');
+// userUpdateService.handle(userUpdateCommand);
+
+// console.log('---UserDeleteService---');
+// const userDeleteService: UserDeleteService = container.resolve(
+//   UserDeleteService,
+// );
+// const userDeleteCommand = new UserDeleteCommand('2');
+// userDeleteService.handle(userDeleteCommand);

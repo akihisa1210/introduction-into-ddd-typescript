@@ -11,9 +11,9 @@ export class UserDeleteService {
     this.userRepository = userRepository;
   }
 
-  handle(command: UserDeleteCommand): void {
+  async handle(command: UserDeleteCommand): Promise<void> {
     const userId = new UserId(command.id);
-    const user = this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId);
 
     if (user === null) {
       throw new Error('User not found');

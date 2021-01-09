@@ -25,25 +25,60 @@ export class UserRepository implements IUserRepository {
     await client.close();
   }
 
-  public findById(id: UserId): User | null {
-    console.log(`finding user by id: ${id.value} for production!`);
-    if (id.value === '2') {
-      console.log('User found!');
-      return new User(new UserName('ExistingUser2'));
+  public async findById(id: UserId): Promise<User | null> {
+    const client = await MongoClient.connect(MONGODDB_URI, {
+      useUnifiedTopology: true,
+    });
+
+    const docs = await client
+      .db('app')
+      .collection('users')
+      .find({ id: id.value })
+      .toArray();
+
+    await client.close();
+
+    if (docs.length === 0) {
+      console.log('User not found!');
+      return new Promise((resolve) => {
+        resolve(null);
+      });
     }
-    console.log('User not found!');
-    return null;
+
+    const foundId = docs[0].id;
+    const foundName = docs[0].name;
+
+    return new Promise((resolve) => {
+      resolve(new User(new UserName(foundName), new UserId(foundId)));
+    });
   }
 
-  public findByName(name: UserName): User | null {
-    console.log(`finding user: ${name} for production!`);
-    if (name.value === 'NewUser') {
-      return null;
+  public async findByName(name: UserName): Promise<User | null> {
+    const client = await MongoClient.connect(MONGODDB_URI, {
+      useUnifiedTopology: true,
+    });
+
+    const docs = await client
+      .db('app')
+      .collection('users')
+      .find({ name: name.value })
+      .toArray();
+
+    await client.close();
+
+    if (docs.length === 0) {
+      console.log('User not found!');
+      return new Promise((resolve) => {
+        resolve(null);
+      });
     }
-    if (name.value === 'NewName') {
-      return null;
-    }
-    return new User(name);
+
+    const foundId = docs[0].id;
+    const foundName = docs[0].name;
+
+    return new Promise((resolve) => {
+      resolve(new User(new UserName(foundName), new UserId(foundId)));
+    });
   }
 
   public findAll(): User[] | null {

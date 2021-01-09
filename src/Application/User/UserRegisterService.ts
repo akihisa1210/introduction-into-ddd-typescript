@@ -18,11 +18,11 @@ export class UserRegisterService {
     this.userService = userService;
   }
 
-  handle(command: UserRegisterCommand): void {
+  async handle(command: UserRegisterCommand): Promise<void> {
     const userName = new UserName(command.name);
     const user = new User(userName);
 
-    if (this.userService.exists(user)) {
+    if (await this.userService.exists(user)) {
       throw new Error('User already exists');
     }
 

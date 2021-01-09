@@ -10,14 +10,18 @@ export class InMemoryUserRepositoryForProduction implements IUserRepository {
     console.log(`Save ${user.name} for production!`);
   }
 
-  public findById(id: UserId): User | null {
+  public async findById(id: UserId): Promise<User | null> {
     console.log(`finding user by id: ${id.value} for production!`);
     if (id.value === '2') {
       console.log('User found!');
-      return new User(new UserName('ExistingUser2'));
+      return new Promise((resolve) => {
+        resolve(new User(new UserName('ExistingUser2')));
+      });
     }
     console.log('User not found!');
-    return null;
+    return new Promise((resolve) => {
+      resolve(null);
+    });
   }
 
   public findByName(name: UserName): User | null {

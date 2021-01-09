@@ -5,8 +5,8 @@ import { UserName } from '../../UserName';
 export type IUserRepository = {
   save(user: User): void;
 
-  findById(id: UserId): User | null;
-  findByName(name: UserName): User | null;
+  findById(id: UserId): Promise<User | null>;
+  findByName(name: UserName): Promise<User | null>;
 
   findAll(): User[] | null;
 
