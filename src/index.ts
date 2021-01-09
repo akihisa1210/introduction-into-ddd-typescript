@@ -11,12 +11,13 @@ import { UserGetInfoService } from './Application/User/UserGetInfoService';
 import { UserUpdateService } from './Application/User/UserUpdateService';
 import { UserDeleteService } from './Application/User/UserDeleteService';
 import { InMemoryUserRepositoryForProduction } from './Repository/User/InMemoryUserRepositoryForProduction';
+import { UserRepository } from './Repository/User/UserRepository';
 
 // container.register('IUserRepository', {
 //   useClass: InMemoryUserRepository,
 // });
 container.register('IUserRepository', {
-  useClass: InMemoryUserRepositoryForProduction,
+  useClass: UserRepository,
 });
 container.register('UserService', { useClass: UserService });
 
