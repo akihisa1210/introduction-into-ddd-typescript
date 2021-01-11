@@ -10,7 +10,6 @@ import { UserRegisterService } from './Application/User/UserRegisterService';
 import { UserGetInfoService } from './Application/User/UserGetInfoService';
 import { UserUpdateService } from './Application/User/UserUpdateService';
 import { UserDeleteService } from './Application/User/UserDeleteService';
-import { InMemoryUserRepositoryForProduction } from './Repository/User/InMemoryUserRepositoryForProduction';
 import { UserRepository } from './Repository/User/UserRepository';
 
 // container.register('IUserRepository', {
