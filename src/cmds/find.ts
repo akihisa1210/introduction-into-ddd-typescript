@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import { UserGetInfoService } from '../Application/User/UserGetInfoService';
 
-export const find = async (id: string): Promise<void> => {
+export const find = async (id: string | undefined): Promise<void> => {
   console.log('---UserGetInfoService---');
 
   const userGetInfoService: UserGetInfoService = container.resolve(
