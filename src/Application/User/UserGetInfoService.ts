@@ -11,16 +11,28 @@ export class UserGetInfoService {
     this.userRepository = userRepository;
   }
 
-  async handle(userId: string): Promise<UserData | null> {
-    const targetId = new UserId(userId);
-    const user = await this.userRepository.findById(targetId);
+  async handle(userId?: string): Promise<UserData[] | UserData | null> {
+    if (userId === undefined) {
+      const users = await this.userRepository.findAll();
 
-    if (user === null) {
-      return null;
+      const usersData = [];
+
+      for (const user of users) {
+        usersData.push(new UserData(user));
+      }
+
+      return usersData;
+    } else {
+      const targetId = new UserId(userId);
+      const user = await this.userRepository.findById(targetId);
+
+      if (user === null) {
+        return null;
+      }
+
+      const userData = new UserData(user);
+
+      return userData;
     }
-
-    const userData = new UserData(user);
-
-    return userData;
   }
 }
