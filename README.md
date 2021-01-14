@@ -9,5 +9,25 @@ docker-compose up -d
 docker-compose exec node bash
 cd src
 npm i
-npx ts-node index.ts
+```
+
+## CLI
+
+```
+docker-compose up -d
+docker-compose exec node bash
+cd src
+npx ts-node cli-user.ts
+
+# Add user
+npx ts-node cli-user.ts add <userName>
+
+# View user
+npx ts-node cli-user.ts find [userId]
+
+# Update user
+npx ts-node cli-user.ts update <userId> <userName>
+
+# Delete user
+npx ts-node cli-user.ts delete <userId>
 ```
