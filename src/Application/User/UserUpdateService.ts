@@ -1,4 +1,5 @@
 import { IUserRepository } from '../../Repository/User/IUserRepository';
+import { User } from '../../Domain/User/User';
 import { UserId } from '../../Domain/User/UserId';
 import { UserName } from '../../Domain/User/UserName';
 import { UserService } from '../../Domain/User/UserService';
@@ -26,15 +27,17 @@ export class UserUpdateService {
       throw new Error('User not found');
     }
 
-    const name = command.name;
-    if (name !== null) {
-      const newUserName = new UserName(name);
-      user.changeName(newUserName);
-      if (this.userService.exists(user)) {
+    const newName = command.name;
+    if (newName !== null) {
+      const newUserName = new UserName(newName);
+
+      if (await this.userService.exists(new User(newUserName))) {
         throw new Error('User already exists');
       }
+
+      user.changeName(newUserName);
     }
 
-    this.userRepository.save(user);
+    await this.userRepository.save(user);
   }
 }
