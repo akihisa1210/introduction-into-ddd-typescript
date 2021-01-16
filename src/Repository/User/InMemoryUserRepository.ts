@@ -6,8 +6,12 @@ import { injectable } from 'tsyringe';
 
 @injectable()
 export class InMemoryUserRepository implements IUserRepository {
+  public users: User[] = [];
+
   public save(user: User): void {
-    console.log(`Save ${user.name} for production!`);
+    console.log('users:', this.users);
+    this.users.push(user);
+    console.log('users:', this.users);
   }
 
   public async findById(id: UserId): Promise<User | null> {
@@ -25,20 +29,13 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   public findByName(name: UserName): Promise<User | null> {
-    console.log(`finding user: ${name} for production!`);
-    if (name.value === 'NewUser') {
-      return new Promise((resolve) => {
-        resolve(null);
-      });
+    console.log('users:', this.users);
+
+    const target = this.users.find((user) => user.name.value === name.value);
+    if (target !== undefined) {
+      return new Promise((resolve) => resolve(target));
     }
-    if (name.value === 'NewName') {
-      return new Promise((resolve) => {
-        resolve(null);
-      });
-    }
-    return new Promise((resolve) => {
-      resolve(new User(new UserName(name.value)));
-    });
+    return new Promise((resolve) => resolve(null));
   }
 
   public findAll(): Promise<User[]> {
