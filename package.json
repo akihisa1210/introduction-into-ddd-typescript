@@ -29,6 +29,7 @@
     "yargs": "^16.2.0"
   },
   "scripts": {
+    "lint": "eslint ./src",
     "test": "jest"
   }
 }
