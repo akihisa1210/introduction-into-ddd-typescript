@@ -39,12 +39,8 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   public findAll(): Promise<User[]> {
-    console.log(`finding all users for production!`);
     return new Promise((resolve) => {
-      resolve([
-        new User(new UserName('User1')),
-        new User(new UserName('User2')),
-      ]);
+      resolve(this.users);
     });
   }
 
