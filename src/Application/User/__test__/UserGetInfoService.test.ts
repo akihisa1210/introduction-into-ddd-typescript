@@ -5,6 +5,7 @@ import { UserData } from '../UserData';
 import { UserGetInfoService } from '../UserGetInfoService';
 import { UserId } from 'Domain/User/UserId';
 import { UserName } from 'Domain/User/UserName';
+import { UserGetInfoCommand } from '../UserGetInfoCommand';
 
 describe('UserGetInfoService', () => {
   it('handle returns empty object if no user is registered', async () => {
@@ -24,8 +25,8 @@ describe('UserGetInfoService', () => {
       'IUserRepository',
     );
 
-    inMemoryUserRepository.save(new User(new UserName('user1')));
-    inMemoryUserRepository.save(new User(new UserName('user2')));
+    await inMemoryUserRepository.save(new User(new UserName('user1')));
+    await inMemoryUserRepository.save(new User(new UserName('user2')));
 
     const userGetInfoService = new UserGetInfoService(inMemoryUserRepository);
 
@@ -41,13 +42,17 @@ describe('UserGetInfoService', () => {
       'IUserRepository',
     );
 
-    inMemoryUserRepository.save(
+    await inMemoryUserRepository.save(
       new User(new UserName('user1'), new UserId('testId')),
     );
 
     const userGetInfoService = new UserGetInfoService(inMemoryUserRepository);
 
-    const user = (await userGetInfoService.handle('testId')) as UserData;
+    const userGetInfoCommand = new UserGetInfoCommand('testId');
+
+    const user = (await userGetInfoService.handle(
+      userGetInfoCommand,
+    )) as UserData;
 
     expect(user.name).toEqual('user1');
   });

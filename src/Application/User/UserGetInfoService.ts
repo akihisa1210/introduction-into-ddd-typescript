@@ -2,6 +2,7 @@ import { IUserRepository } from '../../Repository/User/IUserRepository';
 import { UserData } from './UserData';
 import { UserId } from '../../Domain/User/UserId';
 import { injectable, inject } from 'tsyringe';
+import { UserGetInfoCommand } from './UserGetInfoCommand';
 
 @injectable()
 export class UserGetInfoService {
@@ -11,8 +12,10 @@ export class UserGetInfoService {
     this.userRepository = userRepository;
   }
 
-  async handle(userId?: string): Promise<UserData[] | UserData | null> {
-    if (userId === undefined) {
+  async handle(
+    userGetInfoCommand?: UserGetInfoCommand,
+  ): Promise<UserData[] | UserData | null> {
+    if (userGetInfoCommand === undefined) {
       const users = await this.userRepository.findAll();
 
       const usersData = [];
@@ -25,7 +28,7 @@ export class UserGetInfoService {
 
       return usersData;
     } else {
-      const targetId = new UserId(userId);
+      const targetId = new UserId(userGetInfoCommand.id);
       const user = await this.userRepository.findById(targetId);
 
       if (user === null) {
