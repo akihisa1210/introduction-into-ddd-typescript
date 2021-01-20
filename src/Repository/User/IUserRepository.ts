@@ -3,12 +3,12 @@ import { UserId } from '../../Domain/User/UserId';
 import { UserName } from '../../Domain/User/UserName';
 
 export type IUserRepository = {
-  save(user: User): void;
+  save(user: User): Promise<void>;
 
   findById(id: UserId): Promise<User | null>;
   findByName(name: UserName): Promise<User | null>;
 
   findAll(): Promise<User[]>;
 
-  delete(user: User): void;
+  delete(user: User): Promise<void>;
 };

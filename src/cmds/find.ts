@@ -1,3 +1,4 @@
+import { UserGetInfoCommand } from 'Application/User/UserGetInfoCommand';
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 
@@ -9,6 +10,15 @@ export const find = async (id: string | undefined): Promise<void> => {
   const userGetInfoService: UserGetInfoService = container.resolve(
     UserGetInfoService,
   );
-  const userData = await userGetInfoService.handle(id);
+
+  if (id === undefined) {
+    const userData = await userGetInfoService.handle();
+    console.log(userData);
+    return;
+  }
+
+  const userGetInfoCommand = new UserGetInfoCommand(id);
+  const userData = await userGetInfoService.handle(userGetInfoCommand);
   console.log(userData);
+  return;
 };

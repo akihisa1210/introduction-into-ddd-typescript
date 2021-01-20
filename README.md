@@ -17,17 +17,17 @@ npm i
 docker-compose up -d
 docker-compose exec node bash
 cd src
-npx ts-node cli-user.ts
+npx ts-node -r tsconfig-paths/register cli-user.ts
 
 # Add user
-npx ts-node cli-user.ts add <userName>
+npx ts-node -r tsconfig-paths/register cli-user.ts add <userName>
 
 # View user
-npx ts-node cli-user.ts find [userId]
+npx ts-node -r tsconfig-paths/register cli-user.ts find [userId]
 
 # Update user
-npx ts-node cli-user.ts update <userId> <userName>
+npx ts-node -r tsconfig-paths/register cli-user.ts update <userId> <userName>
 
 # Delete user
-npx ts-node cli-user.ts delete <userId>
+npx ts-node -r tsconfig-paths/register cli-user.ts delete <userId>
 ```
