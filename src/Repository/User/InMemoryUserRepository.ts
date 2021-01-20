@@ -8,10 +8,11 @@ import { injectable } from 'tsyringe';
 export class InMemoryUserRepository implements IUserRepository {
   public users: User[] = [];
 
-  public save(user: User): void {
+  public save(user: User): Promise<void> {
     console.log('users:', this.users);
     this.users.push(user);
     console.log('users:', this.users);
+    return new Promise((resolve) => resolve());
   }
 
   public async findById(id: UserId): Promise<User | null> {
@@ -40,7 +41,23 @@ export class InMemoryUserRepository implements IUserRepository {
     });
   }
 
-  public delete(user: User): void {
-    console.log(`Delete ${user.name} for production!`);
+  public delete(user: User): Promise<void> {
+    console.log('users:', this.users);
+
+    const deleteTargetUser = this.users.find(
+      (existingUser) => existingUser.id.value === user.id.value,
+    );
+
+    if (deleteTargetUser === undefined) {
+      return new Promise((resolve) => resolve());
+    }
+
+    const newUsers = this.users.filter(
+      (user) => user.id.value !== deleteTargetUser.id.value,
+    );
+
+    this.users = newUsers;
+
+    return new Promise((resolve) => resolve());
   }
 }

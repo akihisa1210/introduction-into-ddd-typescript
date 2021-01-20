@@ -24,8 +24,8 @@ describe('UserGetInfoService', () => {
       'IUserRepository',
     );
 
-    inMemoryUserRepository.save(new User(new UserName('user1')));
-    inMemoryUserRepository.save(new User(new UserName('user2')));
+    await inMemoryUserRepository.save(new User(new UserName('user1')));
+    await inMemoryUserRepository.save(new User(new UserName('user2')));
 
     const userGetInfoService = new UserGetInfoService(inMemoryUserRepository);
 
@@ -41,7 +41,7 @@ describe('UserGetInfoService', () => {
       'IUserRepository',
     );
 
-    inMemoryUserRepository.save(
+    await inMemoryUserRepository.save(
       new User(new UserName('user1'), new UserId('testId')),
     );
 
