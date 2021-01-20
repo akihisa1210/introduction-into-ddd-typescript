@@ -15,17 +15,13 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   public async findById(id: UserId): Promise<User | null> {
-    console.log(`finding user by id: ${id.value} for production!`);
-    if (id.value === '2') {
-      console.log('User found!');
-      return new Promise((resolve) => {
-        resolve(new User(new UserName('ExistingUser2')));
-      });
+    console.log('users:', this.users);
+
+    const target = this.users.find((user) => user.id.value === id.value);
+    if (target !== undefined) {
+      return new Promise((resolve) => resolve(target));
     }
-    console.log('User not found!');
-    return new Promise((resolve) => {
-      resolve(null);
-    });
+    return new Promise((resolve) => resolve(null));
   }
 
   public findByName(name: UserName): Promise<User | null> {
