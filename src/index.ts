@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 
-import { InMemoryUserRepository } from './Repository/User/InMemoryUserRepository';
+// import { InMemoryUserRepository } from './Repository/User/InMemoryUserRepository';
 import { UserService } from './Domain/User/UserService';
 import { UserUpdateCommand } from './Application/User/UserUpdateCommand';
 import { UserDeleteCommand } from './Application/User/UserDeleteCommand';
@@ -11,6 +11,7 @@ import { UserGetInfoService } from './Application/User/UserGetInfoService';
 import { UserUpdateService } from './Application/User/UserUpdateService';
 import { UserDeleteService } from './Application/User/UserDeleteService';
 import { UserRepository } from './Repository/User/UserRepository';
+import { UserGetInfoCommand } from 'Application/User/UserGetInfoCommand';
 
 // container.register('IUserRepository', {
 //   useClass: InMemoryUserRepository,
@@ -39,7 +40,7 @@ const main = async () => {
   const userGetInfoService: UserGetInfoService = container.resolve(
     UserGetInfoService,
   );
-  userGetInfoService.handle('1');
+  userGetInfoService.handle(new UserGetInfoCommand('1'));
 
   console.log('---UserUpdateService---');
 
