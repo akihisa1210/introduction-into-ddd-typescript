@@ -4,7 +4,7 @@ import { UserId } from '../../Domain/User/UserId';
 import { UserName } from '../../Domain/User/UserName';
 import { injectable } from 'tsyringe';
 
-import { MongoClient, Collection, ObjectId } from 'mongodb';
+import { MongoClient } from 'mongodb';
 // import { collections, connect } from '../../db';
 
 const MONGODDB_URI =

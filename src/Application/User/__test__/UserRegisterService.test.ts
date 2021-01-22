@@ -1,10 +1,6 @@
 import { container } from 'tsyringe';
 import { IUserRepository } from 'Repository/User/IUserRepository';
-import { User } from 'Domain/User/User';
-import { UserData } from '../UserData';
 import { UserRegisterService } from '../UserRegisterService';
-import { UserId } from 'Domain/User/UserId';
-import { UserName } from 'Domain/User/UserName';
 import { UserRegisterCommand } from '../UserRegisterCommand';
 import { UserService } from 'Domain/User/UserService';
 
