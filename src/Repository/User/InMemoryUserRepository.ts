@@ -8,10 +8,24 @@ import { injectable } from 'tsyringe';
 export class InMemoryUserRepository implements IUserRepository {
   public users: User[] = [];
 
-  public save(user: User): Promise<void> {
+  public async save(user: User): Promise<void> {
     console.log('users:', this.users);
-    this.users.push(user);
-    console.log('users:', this.users);
+
+    const existingUserIndex = this.users.findIndex(
+      (existingUser) => existingUser.id === user.id,
+    );
+
+    // Register a new user
+    if (existingUserIndex === -1) {
+      this.users.push(user);
+      console.log('users:', this.users);
+      return new Promise((resolve) => resolve());
+    }
+
+    // Update the existing user
+    const existingUser = this.users[existingUserIndex];
+    existingUser.changeName(user.name);
+    this.users[existingUserIndex] = existingUser;
     return new Promise((resolve) => resolve());
   }
 
