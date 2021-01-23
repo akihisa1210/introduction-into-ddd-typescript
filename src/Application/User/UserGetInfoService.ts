@@ -24,8 +24,6 @@ export class UserGetInfoService {
         usersData.push(new UserData(user));
       }
 
-      console.log(usersData);
-
       return usersData;
     } else {
       const targetId = new UserId(userGetInfoCommand.id);
