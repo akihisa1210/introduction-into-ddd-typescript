@@ -9,11 +9,11 @@ import { UserGetInfoCommand } from '../UserGetInfoCommand';
 
 describe('UserGetInfoService', () => {
   it('handle returns empty object if no user is registered', async () => {
-    const inMemoryUserRepository: IUserRepository = container.resolve(
+    const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
 
-    const userGetInfoService = new UserGetInfoService(inMemoryUserRepository);
+    const userGetInfoService = new UserGetInfoService(userRepository);
 
     const user = await userGetInfoService.handle();
 
@@ -21,14 +21,14 @@ describe('UserGetInfoService', () => {
   });
 
   it('handle returns all users if users are registered', async () => {
-    const inMemoryUserRepository: IUserRepository = container.resolve(
+    const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
 
-    await inMemoryUserRepository.save(new User(new UserName('user1')));
-    await inMemoryUserRepository.save(new User(new UserName('user2')));
+    await userRepository.save(new User(new UserName('user1')));
+    await userRepository.save(new User(new UserName('user2')));
 
-    const userGetInfoService = new UserGetInfoService(inMemoryUserRepository);
+    const userGetInfoService = new UserGetInfoService(userRepository);
 
     const users = (await userGetInfoService.handle()) as UserData[];
 
@@ -38,15 +38,15 @@ describe('UserGetInfoService', () => {
   });
 
   it('handle returns specified user if id is given', async () => {
-    const inMemoryUserRepository: IUserRepository = container.resolve(
+    const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
 
-    await inMemoryUserRepository.save(
+    await userRepository.save(
       new User(new UserName('user1'), new UserId('testId')),
     );
 
-    const userGetInfoService = new UserGetInfoService(inMemoryUserRepository);
+    const userGetInfoService = new UserGetInfoService(userRepository);
 
     const userGetInfoCommand = new UserGetInfoCommand('testId');
 
