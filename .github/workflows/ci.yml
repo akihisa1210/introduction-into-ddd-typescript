@@ -85,7 +85,7 @@ jobs:
         run: docker-compose up -d
       - name: Test
         run: |
-          docker-compose exec -T node bash
-          npm run test:cmd
+          docker-compose exec -T node npm run test:cmd
       - name: Check running contaner (debug)
+        if: ${{ always() }}
         run: docker-compose ps
