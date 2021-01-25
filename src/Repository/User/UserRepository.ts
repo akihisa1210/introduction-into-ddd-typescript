@@ -5,7 +5,6 @@ import { UserName } from '../../Domain/User/UserName';
 import { injectable } from 'tsyringe';
 
 import { MongoClient } from 'mongodb';
-import { update } from 'cmds/update';
 
 const MONGODDB_URI =
   'mongodb://root:example@mongo:27017/example?authSource=admin';
