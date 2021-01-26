@@ -1,72 +1,40 @@
-import 'reflect-metadata';
-import { container } from 'tsyringe';
+import * as yargs from 'yargs';
+import { setup } from './setup';
+import { add } from './cmds/add';
+import { find } from './cmds/find';
+import { update } from './cmds/update';
+import { deleteCmd } from './cmds/delete';
 
-// import { InMemoryUserRepository } from './Repository/User/InMemoryUserRepository';
-import { UserService } from './Domain/User/UserService';
-import { UserUpdateCommand } from './Application/User/UserUpdateCommand';
-import { UserDeleteCommand } from './Application/User/UserDeleteCommand';
-import { UserRegisterCommand } from './Application/User/UserRegisterCommand';
-import { UserRegisterService } from './Application/User/UserRegisterService';
-import { UserGetInfoService } from './Application/User/UserGetInfoService';
-import { UserUpdateService } from './Application/User/UserUpdateService';
-import { UserDeleteService } from './Application/User/UserDeleteService';
-import { UserRepository } from './Repository/User/UserRepository';
-import { UserGetInfoCommand } from 'Application/User/UserGetInfoCommand';
+setup();
 
-// container.register('IUserRepository', {
-//   useClass: InMemoryUserRepository,
-// });
-container.register('IUserRepository', {
-  useClass: UserRepository,
-});
-container.register('UserService', { useClass: UserService });
-
-const main = async () => {
-  console.log('---UserRegisterService---');
-
-  const userRegisterService: UserRegisterService = container.resolve(
-    UserRegisterService,
-  );
-  const userRegistercommand = new UserRegisterCommand('NewUser');
-
-  try {
-    await userRegisterService.handle(userRegistercommand);
-  } catch (error) {
-    console.log(error);
-  }
-
-  console.log('---UserGetInfoService---');
-
-  const userGetInfoService: UserGetInfoService = container.resolve(
-    UserGetInfoService,
-  );
-  userGetInfoService.handle(new UserGetInfoCommand('1'));
-
-  console.log('---UserUpdateService---');
-
-  const userUpdateService: UserUpdateService = container.resolve(
-    UserUpdateService,
-  );
-  const userUpdateCommand = new UserUpdateCommand('2', 'NewName');
-
-  try {
-    await userUpdateService.handle(userUpdateCommand);
-  } catch (error) {
-    console.log(error);
-  }
-
-  console.log('---UserDeleteService---');
-
-  const userDeleteService: UserDeleteService = container.resolve(
-    UserDeleteService,
-  );
-  const userDeleteCommand = new UserDeleteCommand('2');
-
-  try {
-    await userDeleteService.handle(userDeleteCommand);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-main();
+yargs
+  .command({
+    command: 'add <userName> [userId]',
+    describe: 'Add a user',
+    handler: (parsed: { userName: string; userId: string }) => {
+      add(parsed.userName, parsed.userId);
+    },
+  })
+  .command({
+    command: 'find [userId]',
+    describe: 'Find a user or all users',
+    handler: (parsed: { userId: string }) => {
+      find(parsed.userId);
+    },
+  })
+  .command({
+    command: 'update <userId> <userName>',
+    describe: 'Update the name of a user',
+    handler: (parsed: { userId: string; userName: string }) => {
+      update(parsed.userId, parsed.userName);
+    },
+  })
+  .command({
+    command: 'delete <userId>',
+    describe: 'Delete a user by the id',
+    handler: (parsed: { userId: string }) => {
+      deleteCmd(parsed.userId);
+    },
+  })
+  .demandCommand()
+  .help().argv;
