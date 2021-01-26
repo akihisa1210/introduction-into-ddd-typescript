@@ -10,6 +10,7 @@
     "@types/yargs": "^15.0.12",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "@typescript-eslint/parser": "^4.8.2",
+    "bats": "^1.2.1",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-lcom": "^1.0.0",
@@ -31,6 +32,7 @@
   },
   "scripts": {
     "lint": "eslint ./src",
-    "test": "jest"
+    "test": "jest",
+    "test:cmd": "cd ./cmdTest && bats ./*.bats"
   }
 }

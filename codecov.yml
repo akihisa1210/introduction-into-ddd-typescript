@@ -5,6 +5,13 @@ coverage:
   precision: 2
   round: down
   range: '70...100'
+  status:
+    project:
+      number: auto
+      threshold: 10%
+    patch:
+      number: auto
+      threshold: 10%
 
 parsers:
   gcov:

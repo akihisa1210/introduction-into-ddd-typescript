@@ -5,7 +5,6 @@ import { UserName } from '../../Domain/User/UserName';
 import { injectable } from 'tsyringe';
 
 import { MongoClient } from 'mongodb';
-// import { collections, connect } from '../../db';
 
 const MONGODDB_URI =
   'mongodb://root:example@mongo:27017/example?authSource=admin';
@@ -17,10 +16,18 @@ export class UserRepository implements IUserRepository {
       useUnifiedTopology: true,
     });
 
-    await client.db('app').collection('users').insertOne({
+    const filterQuery = {
       id: user.id.value,
-      name: user.name.value,
-    });
+    };
+
+    const updateQuery = {
+      $set: { id: user.id.value, name: user.name.value },
+    };
+
+    await client
+      .db('app')
+      .collection('users')
+      .updateOne(filterQuery, updateQuery, { upsert: true });
 
     await client.close();
   }
@@ -67,7 +74,6 @@ export class UserRepository implements IUserRepository {
     await client.close();
 
     if (docs.length === 0) {
-      console.log('User not found!');
       return new Promise((resolve) => {
         resolve(null);
       });

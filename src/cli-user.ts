@@ -9,10 +9,10 @@ setup();
 
 yargs
   .command({
-    command: 'add <userName>',
+    command: 'add <userName> [userId]',
     describe: 'Add a user',
-    handler: (parsed: { userName: string }) => {
-      add(parsed.userName);
+    handler: (parsed: { userName: string; userId: string }) => {
+      add(parsed.userName, parsed.userId);
     },
   })
   .command({
