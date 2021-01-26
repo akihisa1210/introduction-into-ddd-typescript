@@ -81,11 +81,13 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: npm ci
+      - name: Build cli app
+        run: npm build
       - name: Start service
         run: docker-compose up -d
       - name: Test
         run: |
-          docker-compose exec -T node npm run test:cmd
+          docker-compose exec -T node npm run test:cli
       - name: Check running contaner (debug)
         if: ${{ always() }}
         run: docker-compose ps

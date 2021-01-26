@@ -31,14 +31,18 @@
     "@types/uuid": "^8.3.0",
     "mongodb": "^3.6.3",
     "reflect-metadata": "^0.1.13",
+    "saslprep": "^1.0.3",
     "tsyringe": "^4.4.0",
     "uuid": "^8.3.2",
     "yargs": "^16.2.0"
   },
+  "bin": {
+    "user-cli": "./dist/main.js"
+  },
   "scripts": {
     "lint": "eslint ./src",
     "test": "jest",
-    "test:cmd": "cd ./cmdTest && bats ./*.bats",
+    "test:cli": "cd ./cliTest && bats ./*.bats",
     "build": "webpack --mode development"
   }
 }
