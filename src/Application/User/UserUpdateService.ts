@@ -34,11 +34,12 @@ export class UserUpdateService {
     }
 
     const newUserName = new UserName(newName);
-    user.changeName(newUserName);
 
-    if (await this.userService.exists(user)) {
+    if (await this.userService.exists(new User(newUserName, targetId))) {
       throw new Error('User already exists');
     }
+
+    user.changeName(newUserName);
 
     await this.userRepository.save(user);
   }

@@ -6,6 +6,7 @@ import { UserGetInfoService } from '../UserGetInfoService';
 import { UserId } from 'Domain/User/UserId';
 import { UserName } from 'Domain/User/UserName';
 import { UserGetInfoCommand } from '../UserGetInfoCommand';
+import { IUserFactory } from 'Domain/User/IUserFactory';
 
 describe('UserGetInfoService', () => {
   it('handle returns empty object if no user is registered', async () => {
@@ -21,12 +22,13 @@ describe('UserGetInfoService', () => {
   });
 
   it('handle returns all users if users are registered', async () => {
+    const userFactory: IUserFactory = container.resolve('IUserFactory');
     const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
 
-    await userRepository.save(new User(new UserName('user1')));
-    await userRepository.save(new User(new UserName('user2')));
+    await userRepository.save(userFactory.create(new UserName('user1')));
+    await userRepository.save(userFactory.create(new UserName('user2')));
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
