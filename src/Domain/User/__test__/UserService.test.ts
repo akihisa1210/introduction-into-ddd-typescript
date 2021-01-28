@@ -1,4 +1,3 @@
-import { User } from 'Domain/User/User';
 import { UserName } from 'Domain/User/UserName';
 import { UserService } from 'Domain/User/UserService';
 import { IUserRepository } from 'Repository/User/IUserRepository';
