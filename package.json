@@ -12,6 +12,8 @@
     "@typescript-eslint/parser": "^4.8.2",
     "@webpack-cli/init": "^1.1.2",
     "bats": "^1.2.1",
+    "bats-assert": "git+https://github.com/ztombol/bats-assert.git",
+    "bats-support": "git+https://github.com/ztombol/bats-support.git",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-lcom": "^1.0.0",
