@@ -28,14 +28,16 @@ export class UserUpdateService {
     }
 
     const newName = command.name;
-    if (newName !== null) {
-      const newUserName = new UserName(newName);
 
-      if (await this.userService.exists(new User(newUserName))) {
-        throw new Error('User already exists');
-      }
+    if (newName === null) {
+      throw new Error('New UserName is null');
+    }
 
-      user.changeName(newUserName);
+    const newUserName = new UserName(newName);
+    user.changeName(newUserName);
+
+    if (await this.userService.exists(user)) {
+      throw new Error('User already exists');
     }
 
     await this.userRepository.save(user);
