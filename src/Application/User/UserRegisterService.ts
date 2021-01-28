@@ -4,6 +4,7 @@ import { UserRegisterCommand } from './UserRegisterCommand';
 import { UserService } from '../../Domain/User/UserService';
 import { injectable, inject } from 'tsyringe';
 import { IUserFactory } from 'Domain/User/IUserFactory';
+import { UserData } from './UserData';
 
 @injectable()
 export class UserRegisterService {
@@ -21,7 +22,7 @@ export class UserRegisterService {
     this.userService = userService;
   }
 
-  async handle(command: UserRegisterCommand): Promise<void> {
+  async handle(command: UserRegisterCommand): Promise<UserData> {
     const userName = new UserName(command.name);
     const user = this.userFactory.create(userName);
 
@@ -30,5 +31,6 @@ export class UserRegisterService {
     }
 
     this.userRepository.save(user);
+    return new UserData(user);
   }
 }
