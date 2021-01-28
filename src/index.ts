@@ -12,7 +12,7 @@ yargs
     command: 'add <userName> [userId]',
     describe: 'Add a user',
     handler: (parsed: { userName: string; userId: string }) => {
-      add(parsed.userName, parsed.userId);
+      add(parsed.userName);
     },
   })
   .command({
