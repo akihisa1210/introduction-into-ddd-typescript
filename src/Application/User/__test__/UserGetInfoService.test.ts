@@ -50,7 +50,33 @@ describe('UserGetInfoService', () => {
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
-    const userGetInfoCommand = new UserGetInfoCommand('testId');
+    const userGetInfoCommand: UserGetInfoCommand = {
+      kind: 'userId',
+      value: 'testId',
+    };
+
+    const user = (await userGetInfoService.handle(
+      userGetInfoCommand,
+    )) as UserData;
+
+    expect(user.name).toEqual('user1');
+  });
+
+  it('handle returns specified user if name is given', async () => {
+    const userRepository: IUserRepository = container.resolve(
+      'IUserRepository',
+    );
+
+    await userRepository.save(
+      new User(new UserName('user1'), new UserId('testId')),
+    );
+
+    const userGetInfoService = new UserGetInfoService(userRepository);
+
+    const userGetInfoCommand: UserGetInfoCommand = {
+      kind: 'userName',
+      value: 'user1',
+    };
 
     const user = (await userGetInfoService.handle(
       userGetInfoCommand,

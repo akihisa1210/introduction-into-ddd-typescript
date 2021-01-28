@@ -1,11 +1,4 @@
-export class UserGetInfoCommand {
-  private readonly _id;
-
-  constructor(id: string) {
-    this._id = id;
-  }
-
-  get id(): string {
-    return this._id;
-  }
-}
+export type UserGetInfoCommand = {
+  kind: 'userId' | 'userName';
+  value: string;
+};
