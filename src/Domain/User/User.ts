@@ -34,8 +34,4 @@ export class User {
   equals(other: User): boolean {
     return this._id === other._id;
   }
-
-  createCircle(circleName: CircleName): Circle {
-    return new Circle(circleName, this._id);
-  }
 }
