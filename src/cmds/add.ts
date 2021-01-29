@@ -4,11 +4,13 @@ import { container } from 'tsyringe';
 import { UserRegisterCommand } from '../Application/User/UserRegisterCommand';
 import { UserRegisterService } from '../Application/User/UserRegisterService';
 
-export const add = async (name: string, id?: string): Promise<void> => {
+export const add = async (name: string): Promise<void> => {
   const userRegisterService: UserRegisterService = container.resolve(
     UserRegisterService,
   );
-  const userRegistercommand = new UserRegisterCommand(name, id);
+  const userRegistercommand = new UserRegisterCommand(name);
 
-  await userRegisterService.handle(userRegistercommand);
+  const userData = await userRegisterService.handle(userRegistercommand);
+
+  console.log(JSON.stringify(userData));
 };

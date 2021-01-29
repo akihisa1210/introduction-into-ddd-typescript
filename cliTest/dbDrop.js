@@ -1,4 +1,6 @@
-import { MongoClient } from 'mongodb';
+// In order to shorten the time of cliTest this file is still not TypeScript
+
+const MongoClient = require('mongodb');
 
 const MONGODDB_URI =
   'mongodb://root:example@mongo:27017/example?authSource=admin';

@@ -5,6 +5,7 @@ import { UserName } from '../../Domain/User/UserName';
 import { UserService } from '../../Domain/User/UserService';
 import { UserUpdateCommand } from './UserUpdateCommand';
 import { injectable, inject } from 'tsyringe';
+import { UserData } from './UserData';
 
 @injectable()
 export class UserUpdateService {
@@ -19,7 +20,7 @@ export class UserUpdateService {
     this.userService = userService;
   }
 
-  async handle(command: UserUpdateCommand): Promise<void> {
+  async handle(command: UserUpdateCommand): Promise<UserData> {
     const targetId = new UserId(command.id);
     const user = await this.userRepository.findById(targetId);
 
@@ -28,16 +29,21 @@ export class UserUpdateService {
     }
 
     const newName = command.name;
-    if (newName !== null) {
-      const newUserName = new UserName(newName);
 
-      if (await this.userService.exists(new User(newUserName))) {
-        throw new Error('User already exists');
-      }
-
-      user.changeName(newUserName);
+    if (newName === null) {
+      throw new Error('New UserName is null');
     }
 
+    const newUserName = new UserName(newName);
+
+    if (await this.userService.exists(new User(newUserName, targetId))) {
+      throw new Error('User already exists');
+    }
+
+    user.changeName(newUserName);
+
     await this.userRepository.save(user);
+
+    return new UserData(user);
   }
 }

@@ -1,19 +1,22 @@
+import { Circle, CircleName } from 'Domain/Circle/Circle';
 import { UserId } from './UserId';
 import { UserName } from './UserName';
-import { v4 as uuidv4 } from 'uuid';
 
 export class User {
   private readonly _id: UserId;
   private _name: UserName;
 
-  constructor(name: UserName, id?: UserId) {
+  constructor(name: UserName, id: UserId) {
     if (name === null) {
       throw new Error('Name is null.');
     }
 
-    id ? (this._id = id) : (this._id = new UserId(uuidv4()));
+    if (id === null) {
+      throw new Error('Id is null.');
+    }
 
     this._name = name;
+    this._id = id;
   }
 
   get id(): UserId {
@@ -30,5 +33,9 @@ export class User {
 
   equals(other: User): boolean {
     return this._id === other._id;
+  }
+
+  createCircle(circleName: CircleName): Circle {
+    return new Circle(circleName, this._id);
   }
 }

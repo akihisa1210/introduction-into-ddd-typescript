@@ -1,11 +1,15 @@
 import { container } from 'tsyringe';
 import { IUserRepository } from 'Repository/User/IUserRepository';
 import { User } from 'Domain/User/User';
-import { UserData } from '../UserData';
-import { UserGetInfoService } from '../UserGetInfoService';
+import {
+  UserGetInfoAll,
+  UserGetInfoByUserId,
+  UserGetInfoByUserName,
+  UserGetInfoService,
+} from '../UserGetInfoService';
 import { UserId } from 'Domain/User/UserId';
 import { UserName } from 'Domain/User/UserName';
-import { UserGetInfoCommand } from '../UserGetInfoCommand';
+import { IUserFactory } from 'Domain/User/IUserFactory';
 
 describe('UserGetInfoService', () => {
   it('handle returns empty object if no user is registered', async () => {
@@ -15,22 +19,27 @@ describe('UserGetInfoService', () => {
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
-    const user = await userGetInfoService.handle();
+    const userGetInfoAll: UserGetInfoAll = { target: 'all', value: '' };
+
+    const user = await userGetInfoService.handle(userGetInfoAll);
 
     expect(user).toEqual([]);
   });
 
   it('handle returns all users if users are registered', async () => {
+    const userFactory: IUserFactory = container.resolve('IUserFactory');
     const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
 
-    await userRepository.save(new User(new UserName('user1')));
-    await userRepository.save(new User(new UserName('user2')));
+    await userRepository.save(userFactory.create(new UserName('user1')));
+    await userRepository.save(userFactory.create(new UserName('user2')));
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
-    const users = (await userGetInfoService.handle()) as UserData[];
+    const userGetInfoAll: UserGetInfoAll = { target: 'all', value: '' };
+
+    const users = await userGetInfoService.handle(userGetInfoAll);
 
     expect(users.length).toEqual(2);
     expect(users[0].name).toEqual('user1');
@@ -48,11 +57,33 @@ describe('UserGetInfoService', () => {
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
-    const userGetInfoCommand = new UserGetInfoCommand('testId');
+    const userGetInfoByUserId: UserGetInfoByUserId = {
+      target: 'userId',
+      value: 'testId',
+    };
 
-    const user = (await userGetInfoService.handle(
-      userGetInfoCommand,
-    )) as UserData;
+    const user = await userGetInfoService.handle(userGetInfoByUserId);
+
+    expect(user.name).toEqual('user1');
+  });
+
+  it('handle returns specified user if name is given', async () => {
+    const userRepository: IUserRepository = container.resolve(
+      'IUserRepository',
+    );
+
+    await userRepository.save(
+      new User(new UserName('user1'), new UserId('testId')),
+    );
+
+    const userGetInfoService = new UserGetInfoService(userRepository);
+
+    const userGetInfoByUserName: UserGetInfoByUserName = {
+      target: 'userName',
+      value: 'user1',
+    };
+
+    const user = await userGetInfoService.handle(userGetInfoByUserName);
 
     expect(user.name).toEqual('user1');
   });
