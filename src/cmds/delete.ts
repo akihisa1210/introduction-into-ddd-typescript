@@ -1,6 +1,7 @@
-import { UserData } from 'Application/User/UserData';
-import { UserGetInfoCommand } from 'Application/User/UserGetInfoCommand';
-import { UserGetInfoService } from 'Application/User/UserGetInfoService';
+import {
+  UserGetInfoByUserName,
+  UserGetInfoService,
+} from 'Application/User/UserGetInfoService';
 import { UserDeleteCommand } from '../Application/User/UserDeleteCommand';
 import { UserDeleteService } from '../Application/User/UserDeleteService';
 
@@ -15,13 +16,11 @@ export const deleteCmd = async (name: string): Promise<void> => {
     UserDeleteService,
   );
 
-  const userGetInfoCommand: UserGetInfoCommand = {
-    kind: 'userName',
+  const userGetInfoCommand: UserGetInfoByUserName = {
+    target: 'userName',
     value: name,
   };
-  const user = (await userGetInfoService.handle(
-    userGetInfoCommand,
-  )) as UserData;
+  const user = await userGetInfoService.handle(userGetInfoCommand);
 
   const userDeleteCommand = new UserDeleteCommand(user.id);
 

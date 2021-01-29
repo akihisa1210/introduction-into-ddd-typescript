@@ -1,11 +1,14 @@
 import { container } from 'tsyringe';
 import { IUserRepository } from 'Repository/User/IUserRepository';
 import { User } from 'Domain/User/User';
-import { UserData } from '../UserData';
-import { UserGetInfoService } from '../UserGetInfoService';
+import {
+  UserGetInfoAll,
+  UserGetInfoByUserId,
+  UserGetInfoByUserName,
+  UserGetInfoService,
+} from '../UserGetInfoService';
 import { UserId } from 'Domain/User/UserId';
 import { UserName } from 'Domain/User/UserName';
-import { UserGetInfoCommand } from '../UserGetInfoCommand';
 import { IUserFactory } from 'Domain/User/IUserFactory';
 
 describe('UserGetInfoService', () => {
@@ -16,7 +19,9 @@ describe('UserGetInfoService', () => {
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
-    const user = await userGetInfoService.handle();
+    const userGetInfoAll: UserGetInfoAll = { target: 'all', value: '' };
+
+    const user = await userGetInfoService.handle(userGetInfoAll);
 
     expect(user).toEqual([]);
   });
@@ -32,7 +37,9 @@ describe('UserGetInfoService', () => {
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
-    const users = (await userGetInfoService.handle()) as UserData[];
+    const userGetInfoAll: UserGetInfoAll = { target: 'all', value: '' };
+
+    const users = await userGetInfoService.handle(userGetInfoAll);
 
     expect(users.length).toEqual(2);
     expect(users[0].name).toEqual('user1');
@@ -50,14 +57,12 @@ describe('UserGetInfoService', () => {
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
-    const userGetInfoCommand: UserGetInfoCommand = {
-      kind: 'userId',
+    const userGetInfoByUserId: UserGetInfoByUserId = {
+      target: 'userId',
       value: 'testId',
     };
 
-    const user = (await userGetInfoService.handle(
-      userGetInfoCommand,
-    )) as UserData;
+    const user = await userGetInfoService.handle(userGetInfoByUserId);
 
     expect(user.name).toEqual('user1');
   });
@@ -73,14 +78,12 @@ describe('UserGetInfoService', () => {
 
     const userGetInfoService = new UserGetInfoService(userRepository);
 
-    const userGetInfoCommand: UserGetInfoCommand = {
-      kind: 'userName',
+    const userGetInfoByUserName: UserGetInfoByUserName = {
+      target: 'userName',
       value: 'user1',
     };
 
-    const user = (await userGetInfoService.handle(
-      userGetInfoCommand,
-    )) as UserData;
+    const user = await userGetInfoService.handle(userGetInfoByUserName);
 
     expect(user.name).toEqual('user1');
   });

@@ -3,7 +3,32 @@ import { UserData } from './UserData';
 import { UserId } from '../../Domain/User/UserId';
 import { injectable, inject } from 'tsyringe';
 import { UserName } from 'Domain/User/UserName';
-import { UserGetInfoCommand } from './UserGetInfoCommand';
+
+export type UserGetInfoAll = {
+  target: 'all';
+  value: string;
+};
+
+export type UserGetInfoByUserId = {
+  target: 'userId';
+  value: string;
+};
+
+export type UserGetInfoByUserName = {
+  target: 'userName';
+  value: string;
+};
+
+type ArgumentTypeName =
+  | UserGetInfoAll
+  | UserGetInfoByUserId
+  | UserGetInfoByUserName;
+
+type returnType<T> = T extends UserGetInfoAll
+  ? UserData[]
+  : T extends UserGetInfoByUserId | UserGetInfoByUserName
+  ? UserData
+  : never;
 
 @injectable()
 export class UserGetInfoService {
@@ -13,45 +38,41 @@ export class UserGetInfoService {
     this.userRepository = userRepository;
   }
 
-  async handle(
-    userGetInfoComand?: UserGetInfoCommand,
-  ): Promise<UserData[] | UserData | null> {
-    if (userGetInfoComand === undefined) {
-      const users = await this.userRepository.findAll();
+  async handle<T extends ArgumentTypeName>(type: T): Promise<returnType<T>> {
+    switch (type.target) {
+      case 'all': {
+        const users = await this.userRepository.findAll();
 
-      const usersData = [];
+        const usersData = [];
 
-      for (const user of users) {
-        usersData.push(new UserData(user));
+        for (const user of users) {
+          usersData.push(new UserData(user));
+        }
+
+        return usersData as returnType<T>;
       }
-
-      return usersData;
-    }
-
-    switch (userGetInfoComand.kind) {
       case 'userId': {
-        const targetId = new UserId(userGetInfoComand.value);
+        const targetId = new UserId(type.value);
         const user = await this.userRepository.findById(targetId);
         if (user === null) {
-          return null;
+          throw new Error('User not found.');
         }
 
         const userData = new UserData(user);
 
-        return userData;
+        return userData as returnType<T>;
       }
       case 'userName': {
-        const targetName = new UserName(userGetInfoComand.value);
+        const targetName = new UserName(type.value);
         const user = await this.userRepository.findByName(targetName);
         if (user === null) {
-          return null;
+          throw new Error('User not found.');
         }
 
         const userData = new UserData(user);
 
-        return userData;
+        return userData as returnType<T>;
       }
-
       default:
         throw new Error('userId of userName must be specified.');
     }

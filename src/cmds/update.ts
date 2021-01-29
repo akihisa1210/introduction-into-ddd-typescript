@@ -4,8 +4,10 @@ import { container } from 'tsyringe';
 import { UserData } from 'Application/User/UserData';
 import { UserUpdateCommand } from '../Application/User/UserUpdateCommand';
 import { UserUpdateService } from '../Application/User/UserUpdateService';
-import { UserGetInfoCommand } from 'Application/User/UserGetInfoCommand';
-import { UserGetInfoService } from 'Application/User/UserGetInfoService';
+import {
+  UserGetInfoByUserName,
+  UserGetInfoService,
+} from 'Application/User/UserGetInfoService';
 
 export const update = async (
   dstName: string,
@@ -18,13 +20,11 @@ export const update = async (
     UserUpdateService,
   );
 
-  const userGetInfoCommand: UserGetInfoCommand = {
-    kind: 'userName',
+  const userGetInfoCommand: UserGetInfoByUserName = {
+    target: 'userName',
     value: dstName,
   };
-  const dstUser = (await userGetInfoService.handle(
-    userGetInfoCommand,
-  )) as UserData;
+  const dstUser = await userGetInfoService.handle(userGetInfoCommand);
 
   const userUpdateCommand = new UserUpdateCommand(dstUser.id, srcName);
 
