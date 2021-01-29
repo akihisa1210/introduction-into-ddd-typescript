@@ -12,6 +12,7 @@ coverage:
     patch:
       number: auto
       threshold: 10%
+      informational: false
 
 parsers:
   gcov:
