@@ -9,10 +9,7 @@ coverage:
     project:
       number: auto
       threshold: 10%
-    patch:
-      number: auto
-      threshold: 10%
-      informational: false
+    patch: no
 
 parsers:
   gcov:
