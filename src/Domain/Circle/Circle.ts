@@ -41,21 +41,16 @@ export class CircleName {
 }
 
 export class Circle {
-  private _circleId: CircleId;
-  private _circleName: CircleName;
+  private _id: CircleId;
+  private _name: CircleName;
   private _owner: User;
   private _members: User[];
 
-  constructor(
-    circleId: CircleId,
-    circleName: CircleName,
-    owner: User,
-    members: User[],
-  ) {
-    if (circleId === null) {
+  constructor(id: CircleId, name: CircleName, owner: User, members: User[]) {
+    if (id === null) {
       throw new Error('CircleId is null.');
     }
-    if (circleName === null) {
+    if (name === null) {
       throw new Error('CircleName is null.');
     }
     if (owner === null) {
@@ -65,22 +60,22 @@ export class Circle {
       throw new Error('Members is null.');
     }
 
-    this._circleId = circleId;
-    this._circleName = circleName;
+    this._id = id;
+    this._name = name;
     this._owner = owner;
     this._members = members;
   }
 
-  get circleId(): CircleId {
-    return this._circleId;
+  get id(): CircleId {
+    return this._id;
   }
 
-  get circleName(): CircleName {
-    return this._circleName;
+  get name(): CircleName {
+    return this._name;
   }
 
-  set circleName(name: CircleName) {
-    this._circleName = name;
+  set name(name: CircleName) {
+    this._name = name;
   }
 
   get owner(): User {
