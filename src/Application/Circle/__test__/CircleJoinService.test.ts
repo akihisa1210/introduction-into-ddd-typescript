@@ -11,14 +11,21 @@ import { container } from 'tsyringe';
 import { CircleCreateCommand } from '../CircleCreateCommand';
 import { CircleCreateService } from '../CircleCreateService';
 
-describe('CircleCreateService', () => {
-  it('handle creates a circle', async () => {
+describe('CircleJoinService', () => {
+  it('handle makes user to join a circle', async () => {
     const circleFactory: ICircleFactory = container.resolve('ICircleFactory');
     const circleRepository: ICircleRepository = container.resolve(
       'ICircleRepository',
     );
     const circleService = new CircleService(circleRepository);
     const userRepository = new UserRepository();
+    const circleJoinService = new CircleJoinSerice(
+      circleFactory,
+      circleRepository,
+      circleService,
+      userRepository,
+    );
+
     const circleCreateService = new CircleCreateService(
       circleFactory,
       circleRepository,
@@ -35,13 +42,16 @@ describe('CircleCreateService', () => {
     );
 
     await userRegisterService.handle(new UserRegisterCommand('user1'));
+    await userRegisterService.handle(new UserRegisterCommand('user2'));
 
     await circleCreateService.handle(
       new CircleCreateCommand('circle1', 'user1'),
     );
 
+    await circleJoinSerice.handle(new CircleJoinCommand('circle1', 'user2'));
+
     const circle = await circleRepository.findByName(new CircleName('circle1'));
 
-    expect(circle?.name.value).toEqual('circle1');
+    expect(circle?.members[0].name.value).toEqual('user2');
   });
 });
