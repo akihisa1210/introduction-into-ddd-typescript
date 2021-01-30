@@ -1,4 +1,3 @@
-import { Circle, CircleName } from 'Domain/Circle/Circle';
 import { UserId } from './UserId';
 import { UserName } from './UserName';
 
