@@ -90,22 +90,22 @@ export class Circle {
     return this._members;
   }
 
-  set members(members: User[]) {
-    this._members = members;
-  }
-
   changeName(newName: CircleName): void {
     this._name = newName;
+  }
+
+  isFull(): boolean {
+    return this._members.length >= 29;
   }
 
   join(member: User): void {
     if (member === null) {
       throw new Error('Member is null.');
     }
-    if (this.members.length >= 29) {
+    if (this.isFull()) {
       throw new Error('Circle members are more than 29.');
     }
 
-    this.members.push(member);
+    this._members.push(member);
   }
 }
