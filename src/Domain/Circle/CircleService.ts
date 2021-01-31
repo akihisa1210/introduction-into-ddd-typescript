@@ -1,10 +1,14 @@
 import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
+import { inject, injectable } from 'tsyringe';
 import { Circle } from './Circle';
 
+@injectable()
 export class CircleService {
   private readonly circleRepository: ICircleRepository;
 
-  constructor(circleRepository: ICircleRepository) {
+  constructor(
+    @inject('ICircleRepository') circleRepository: ICircleRepository,
+  ) {
     this.circleRepository = circleRepository;
   }
 

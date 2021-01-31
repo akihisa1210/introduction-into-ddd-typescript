@@ -1,5 +1,5 @@
 import { Circle, CircleId, CircleName } from './Circle';
-import { ICircleFactory } from './ICircleFattory';
+import { ICircleFactory } from './ICircleFactory';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from 'Domain/User/User';
 

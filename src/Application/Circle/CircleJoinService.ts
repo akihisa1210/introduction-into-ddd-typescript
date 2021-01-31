@@ -2,15 +2,16 @@ import { CircleId } from 'Domain/Circle/Circle';
 import { UserId } from 'Domain/User/UserId';
 import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
 import { IUserRepository } from 'Repository/User/IUserRepository';
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import { CircleJoinCommand } from './CircleJoinCommand';
 
+@injectable()
 export class CircleJoinService {
   private readonly circleRepository: ICircleRepository;
   private readonly userRepository: IUserRepository;
 
   constructor(
-    @inject('ICreateRepository') circleRepository: ICircleRepository,
+    @inject('ICircleRepository') circleRepository: ICircleRepository,
     @inject('IUserRepository') userRepository: IUserRepository,
   ) {
     this.circleRepository = circleRepository;

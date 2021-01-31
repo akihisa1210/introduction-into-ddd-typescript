@@ -6,6 +6,10 @@ import { UserDeleteService } from '../UserDeleteService';
 import { UserId } from 'Domain/User/UserId';
 import { UserName } from 'Domain/User/UserName';
 
+beforeEach(() => {
+  container.clearInstances();
+});
+
 describe('UserDeleteService', () => {
   it('handle deletes a user', async () => {
     const userRepository: IUserRepository = container.resolve(
@@ -19,7 +23,7 @@ describe('UserDeleteService', () => {
       new User(new UserName('user2'), new UserId('testId2')),
     );
 
-    const userDeleteService = new UserDeleteService(userRepository);
+    const userDeleteService = container.resolve(UserDeleteService);
 
     const userDeleteCommand = new UserDeleteCommand('testId1');
 

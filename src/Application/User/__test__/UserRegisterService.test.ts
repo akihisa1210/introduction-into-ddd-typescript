@@ -2,22 +2,18 @@ import { container } from 'tsyringe';
 import { IUserRepository } from 'Repository/User/IUserRepository';
 import { UserRegisterService } from '../UserRegisterService';
 import { UserRegisterCommand } from '../UserRegisterCommand';
-import { UserService } from 'Domain/User/UserService';
-import { IUserFactory } from 'Domain/User/IUserFactory';
+
+beforeEach(() => {
+  container.clearInstances();
+});
 
 describe('UserRegisterService', () => {
   it('handle creates a user', async () => {
-    const userFactory: IUserFactory = container.resolve('IUserFactory');
     const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
-    const userService = new UserService(userRepository);
 
-    const userRegisterService = new UserRegisterService(
-      userFactory,
-      userRepository,
-      userService,
-    );
+    const userRegisterService = container.resolve(UserRegisterService);
 
     await userRegisterService.handle(new UserRegisterCommand('user1'));
 
@@ -28,17 +24,11 @@ describe('UserRegisterService', () => {
   });
 
   it('handle does not creates a user if the user already exists', async () => {
-    const userFactory: IUserFactory = container.resolve('IUserFactory');
     const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
-    const userService = new UserService(userRepository);
 
-    const userRegisterService = new UserRegisterService(
-      userFactory,
-      userRepository,
-      userService,
-    );
+    const userRegisterService = container.resolve(UserRegisterService);
 
     await userRegisterService.handle(new UserRegisterCommand('user1'));
 

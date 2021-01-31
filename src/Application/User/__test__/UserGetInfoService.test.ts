@@ -11,6 +11,10 @@ import { UserId } from 'Domain/User/UserId';
 import { UserName } from 'Domain/User/UserName';
 import { IUserFactory } from 'Domain/User/IUserFactory';
 
+beforeEach(() => {
+  container.clearInstances();
+});
+
 describe('UserGetInfoService', () => {
   it('handle returns empty object if no user is registered', async () => {
     const userRepository: IUserRepository = container.resolve(
@@ -55,7 +59,7 @@ describe('UserGetInfoService', () => {
       new User(new UserName('user1'), new UserId('testId')),
     );
 
-    const userGetInfoService = new UserGetInfoService(userRepository);
+    const userGetInfoService = container.resolve(UserGetInfoService);
 
     const userGetInfoByUserId: UserGetInfoByUserId = {
       target: 'userId',
@@ -76,7 +80,7 @@ describe('UserGetInfoService', () => {
       new User(new UserName('user1'), new UserId('testId')),
     );
 
-    const userGetInfoService = new UserGetInfoService(userRepository);
+    const userGetInfoService = container.resolve(UserGetInfoService);
 
     const userGetInfoByUserName: UserGetInfoByUserName = {
       target: 'userName',

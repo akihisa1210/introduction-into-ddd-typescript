@@ -2,22 +2,21 @@ import { container } from 'tsyringe';
 import { IUserRepository } from 'Repository/User/IUserRepository';
 import { UserUpdateService } from '../UserUpdateService';
 import { UserUpdateCommand } from '../UserUpdateCommand';
-import { UserService } from 'Domain/User/UserService';
 import { User } from 'Domain/User/User';
 import { UserName } from 'Domain/User/UserName';
 import { UserId } from 'Domain/User/UserId';
+
+beforeEach(() => {
+  container.clearInstances();
+});
 
 describe('UserUpdateService', () => {
   it('handle updates a user name', async () => {
     const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
-    const userService = new UserService(userRepository);
 
-    const userUpdateService = new UserUpdateService(
-      userRepository,
-      userService,
-    );
+    const userUpdateService = container.resolve(UserUpdateService);
 
     await userRepository.save(
       new User(new UserName('user1'), new UserId('user1id')),
@@ -37,12 +36,8 @@ describe('UserUpdateService', () => {
     const userRepository: IUserRepository = container.resolve(
       'IUserRepository',
     );
-    const userService = new UserService(userRepository);
 
-    const userUpdateService = new UserUpdateService(
-      userRepository,
-      userService,
-    );
+    const userUpdateService = container.resolve(UserUpdateService);
 
     await userRepository.save(
       new User(new UserName('user1'), new UserId('user1id')),

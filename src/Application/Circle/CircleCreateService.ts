@@ -1,13 +1,14 @@
 import { CircleName } from 'Domain/Circle/Circle';
 import { CircleService } from 'Domain/Circle/CircleService';
-import { ICircleFactory } from 'Domain/Circle/ICircleFattory';
+import { ICircleFactory } from 'Domain/Circle/ICircleFactory';
 import { UserId } from 'Domain/User/UserId';
 import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
 import { IUserRepository } from 'Repository/User/IUserRepository';
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import { CircleCreateCommand } from './CircleCreateCommand';
 import { CircleData } from './CircleData';
 
+@injectable()
 export class CircleCreateService {
   private readonly circleFactory: ICircleFactory;
   private readonly circleRepository: ICircleRepository;
@@ -15,8 +16,8 @@ export class CircleCreateService {
   private readonly userRepository: IUserRepository;
 
   constructor(
-    @inject('ICreateFactory') circleFactory: ICircleFactory,
-    @inject('ICreateRepository') circleRepository: ICircleRepository,
+    @inject('ICircleFactory') circleFactory: ICircleFactory,
+    @inject('ICircleRepository') circleRepository: ICircleRepository,
     circleService: CircleService,
     @inject('IUserRepository') userRepository: IUserRepository,
   ) {

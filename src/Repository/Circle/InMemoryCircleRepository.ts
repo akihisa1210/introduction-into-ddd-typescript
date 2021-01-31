@@ -1,10 +1,15 @@
-import { injectable } from 'tsyringe';
+import { singleton } from 'tsyringe';
 import { ICircleRepository } from './ICircleRepository';
 import { Circle, CircleId, CircleName } from 'Domain/Circle/Circle';
 
-@injectable()
+@singleton()
 export class InMemoryCircleRepository implements ICircleRepository {
-  public circles: Circle[] = [];
+  public circles: Circle[];
+
+  constructor() {
+    console.log('Constructor of InMemoryCircleRepository is called.');
+    this.circles = [];
+  }
 
   public async save(circle: Circle): Promise<void> {
     console.log('circles:', this.circles);

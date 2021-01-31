@@ -2,11 +2,16 @@ import { IUserRepository } from './IUserRepository';
 import { User } from '../../Domain/User/User';
 import { UserId } from '../../Domain/User/UserId';
 import { UserName } from '../../Domain/User/UserName';
-import { injectable } from 'tsyringe';
+import { singleton } from 'tsyringe';
 
-@injectable()
+@singleton()
 export class InMemoryUserRepository implements IUserRepository {
-  public users: User[] = [];
+  public users: User[];
+
+  constructor() {
+    console.log('Constructor of InMemoryUserRepository is called.');
+    this.users = [];
+  }
 
   public async save(user: User): Promise<void> {
     console.log('users:', this.users);
