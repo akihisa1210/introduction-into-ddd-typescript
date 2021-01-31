@@ -15,7 +15,7 @@ export class UserRegisterService {
   constructor(
     @inject('IUserFactory') userFactory: IUserFactory,
     @inject('IUserRepository') userRepository: IUserRepository,
-    @inject('UserService') userService: UserService,
+    userService: UserService,
   ) {
     this.userFactory = userFactory;
     this.userRepository = userRepository;
