@@ -93,4 +93,8 @@ export class Circle {
   set members(members: User[]) {
     this._members = members;
   }
+
+  changeName(newName: CircleName): void {
+    this._name = newName;
+  }
 }

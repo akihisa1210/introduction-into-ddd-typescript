@@ -4,6 +4,7 @@ import { UserFactory } from 'Domain/User/UserFactory';
 import { UserService } from './Domain/User/UserService';
 import { InMemoryUserRepository } from './Repository/User/InMemoryUserRepository';
 import { CircleFactory } from 'Domain/Circle/CircleFactory';
+import { InMemoryCircleRepository } from 'Repository/Circle/InMemoryCircleRepository';
 
 export const setup = (): void => {
   // User
@@ -18,6 +19,9 @@ export const setup = (): void => {
   // Circle
   container.register('ICircleFactory', {
     useClass: CircleFactory,
+  });
+  container.register('ICircleRepository', {
+    useClass: InMemoryCircleRepository,
   });
 };
 

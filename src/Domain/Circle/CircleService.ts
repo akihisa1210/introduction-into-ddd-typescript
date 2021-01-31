@@ -8,8 +8,8 @@ export class CircleService {
     this.circleRepository = circleRepository;
   }
 
-  exists(circle: Circle): boolean {
-    const duplicated = this.circleRepository.findByName(circle.name);
+  async exists(circle: Circle): Promise<boolean> {
+    const duplicated = await this.circleRepository.findByName(circle.name);
     return duplicated !== null;
   }
 }

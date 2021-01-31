@@ -6,7 +6,7 @@ import { ICircleFactory } from 'Domain/Circle/ICircleFattory';
 import { IUserFactory } from 'Domain/User/IUserFactory';
 import { UserService } from 'Domain/User/UserService';
 import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
-import { UserRepository } from 'Repository/User/UserRepository';
+import { IUserRepository } from 'Repository/User/IUserRepository';
 import { container } from 'tsyringe';
 import { CircleCreateCommand } from '../CircleCreateCommand';
 import { CircleCreateService } from '../CircleCreateService';
@@ -18,7 +18,9 @@ describe('CircleCreateService', () => {
       'ICircleRepository',
     );
     const circleService = new CircleService(circleRepository);
-    const userRepository = new UserRepository();
+    const userRepository: IUserRepository = container.resolve(
+      'IUserRepository',
+    );
     const circleCreateService = new CircleCreateService(
       circleFactory,
       circleRepository,
@@ -34,10 +36,12 @@ describe('CircleCreateService', () => {
       userSerice,
     );
 
-    await userRegisterService.handle(new UserRegisterCommand('user1'));
+    const userData = await userRegisterService.handle(
+      new UserRegisterCommand('user1'),
+    );
 
     await circleCreateService.handle(
-      new CircleCreateCommand('circle1', 'user1'),
+      new CircleCreateCommand('circle1', userData.id),
     );
 
     const circle = await circleRepository.findByName(new CircleName('circle1'));

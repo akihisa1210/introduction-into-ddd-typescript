@@ -6,6 +6,7 @@ import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
 import { IUserRepository } from 'Repository/User/IUserRepository';
 import { inject } from 'tsyringe';
 import { CircleCreateCommand } from './CircleCreateCommand';
+import { CircleData } from './CircleData';
 
 export class CircleCreateService {
   private readonly circleFactory: ICircleFactory;
@@ -25,7 +26,7 @@ export class CircleCreateService {
     this.userRepository = userRepository;
   }
 
-  async handle(command: CircleCreateCommand): Promise<void> {
+  async handle(command: CircleCreateCommand): Promise<CircleData> {
     const ownerId = new UserId(command.userId);
     const owner = await this.userRepository.findById(ownerId);
     if (owner === null) {
@@ -33,11 +34,13 @@ export class CircleCreateService {
     }
 
     const name = new CircleName(command.name);
-    const circle = this.circleFactory.createCircle(name, owner);
-    if (this.circleService.exists(circle)) {
+    const circle = this.circleFactory.create(name, owner);
+    if (await this.circleService.exists(circle)) {
       throw new Error('Circle already exists.');
     }
 
     await this.circleRepository.save(circle);
+
+    return new CircleData(circle);
   }
 }
