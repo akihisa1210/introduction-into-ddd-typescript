@@ -97,4 +97,15 @@ export class Circle {
   changeName(newName: CircleName): void {
     this._name = newName;
   }
+
+  join(member: User): void {
+    if (member === null) {
+      throw new Error('Member is null.');
+    }
+    if (this.members.length >= 29) {
+      throw new Error('Circle is already full.');
+    }
+
+    this.members.push(member);
+  }
 }

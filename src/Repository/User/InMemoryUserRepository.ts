@@ -14,8 +14,6 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   public async save(user: User): Promise<void> {
-    console.log('users:', this.users);
-
     const existingUserIndex = this.users.findIndex(
       (existingUser) => existingUser.id === user.id,
     );
@@ -23,7 +21,6 @@ export class InMemoryUserRepository implements IUserRepository {
     // Register a new user
     if (existingUserIndex === -1) {
       this.users.push(user);
-      console.log('users:', this.users);
       return new Promise((resolve) => resolve());
     }
 
@@ -35,8 +32,6 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   public async findById(id: UserId): Promise<User | null> {
-    console.log('users:', this.users);
-
     const target = this.users.find((user) => user.id.value === id.value);
     if (target !== undefined) {
       return new Promise((resolve) => resolve(target));
@@ -45,8 +40,6 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   public findByName(name: UserName): Promise<User | null> {
-    console.log('users:', this.users);
-
     const target = this.users.find((user) => user.name.value === name.value);
     if (target !== undefined) {
       return new Promise((resolve) => resolve(target));
@@ -61,8 +54,6 @@ export class InMemoryUserRepository implements IUserRepository {
   }
 
   public delete(user: User): Promise<void> {
-    console.log('users:', this.users);
-
     const deleteTargetUser = this.users.find(
       (existingUser) => existingUser.id.value === user.id.value,
     );

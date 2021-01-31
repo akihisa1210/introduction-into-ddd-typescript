@@ -32,7 +32,7 @@ export class CircleJoinService {
     }
 
     if (circle.members.length >= 29) {
-      throw new Error('Circle member is more than 30 except its owner.');
+      throw new Error('Circle members are more than 29.');
     }
 
     circle.members.push(member);
