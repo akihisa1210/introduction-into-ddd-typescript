@@ -94,8 +94,13 @@ export class Circle {
     this._name = newName;
   }
 
+  countMembers(): number {
+    // members + owner
+    return this.members.length + 1;
+  }
+
   isFull(): boolean {
-    return this._members.length >= 29;
+    return this.countMembers() >= 30;
   }
 
   join(member: User): void {
