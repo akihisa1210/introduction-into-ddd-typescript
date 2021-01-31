@@ -46,4 +46,10 @@ export class InMemoryCircleRepository implements ICircleRepository {
     }
     return new Promise((resolve) => resolve(null));
   }
+
+  public findAll(): Promise<Circle[]> {
+    return new Promise((resolve) => {
+      resolve(this.circles);
+    });
+  }
 }

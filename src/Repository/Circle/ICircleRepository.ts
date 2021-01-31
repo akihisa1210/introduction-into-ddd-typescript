@@ -5,4 +5,6 @@ export type ICircleRepository = {
 
   findById(id: CircleId): Promise<Circle | null>;
   findByName(name: CircleName): Promise<Circle | null>;
+
+  findAll(): Promise<Circle[]>;
 };
