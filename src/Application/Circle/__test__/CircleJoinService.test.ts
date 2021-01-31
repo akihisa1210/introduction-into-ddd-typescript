@@ -10,6 +10,8 @@ import { UserRepository } from 'Repository/User/UserRepository';
 import { container } from 'tsyringe';
 import { CircleCreateCommand } from '../CircleCreateCommand';
 import { CircleCreateService } from '../CircleCreateService';
+import { CircleJoinCommand } from '../CircleJoinCommand';
+import { CircleJoinService } from '../CircleJoinService';
 
 describe('CircleJoinService', () => {
   it('handle makes user to join a circle', async () => {
@@ -19,10 +21,8 @@ describe('CircleJoinService', () => {
     );
     const circleService = new CircleService(circleRepository);
     const userRepository = new UserRepository();
-    const circleJoinService = new CircleJoinSerice(
-      circleFactory,
+    const circleJoinService = new CircleJoinService(
       circleRepository,
-      circleService,
       userRepository,
     );
 
@@ -48,7 +48,7 @@ describe('CircleJoinService', () => {
       new CircleCreateCommand('circle1', 'user1'),
     );
 
-    await circleJoinSerice.handle(new CircleJoinCommand('circle1', 'user2'));
+    await circleJoinService.handle(new CircleJoinCommand('circle1', 'user2'));
 
     const circle = await circleRepository.findByName(new CircleName('circle1'));
 
