@@ -9,7 +9,7 @@ import {
   UserGetInfoService,
 } from 'Application/User/UserGetInfoService';
 
-export const update = async (
+export const updateUser = async (
   dstName: string,
   srcName: string,
 ): Promise<UserData> => {
@@ -29,4 +29,12 @@ export const update = async (
   const userUpdateCommand = new UserUpdateCommand(dstUser.id, srcName);
 
   return await userUpdateService.handle(userUpdateCommand);
+};
+
+export const update = async (
+  srcName: string,
+  dstName: string,
+): Promise<void> => {
+  const result = await updateUser(srcName, dstName);
+  console.log(JSON.stringify(result));
 };

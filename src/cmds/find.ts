@@ -1,24 +1,26 @@
+import { UserData } from 'Application/User/UserData';
 import 'reflect-metadata';
 import { container } from 'tsyringe';
-
 import {
   UserGetInfoByUserName,
   UserGetInfoService,
 } from '../Application/User/UserGetInfoService';
 
-export const find = async (name: string | undefined): Promise<void> => {
+export const findAllUsers = async (): Promise<UserData[]> => {
   const userGetInfoService: UserGetInfoService = container.resolve(
     UserGetInfoService,
   );
+  const usersData = await userGetInfoService.handle({
+    target: 'all',
+    value: '',
+  });
+  return usersData;
+};
 
-  if (name === undefined) {
-    const userData = await userGetInfoService.handle({
-      target: 'all',
-      value: '',
-    });
-    console.log(JSON.stringify(userData));
-    return;
-  }
+export const findUser = async (name: string): Promise<UserData> => {
+  const userGetInfoService: UserGetInfoService = container.resolve(
+    UserGetInfoService,
+  );
 
   const userGetInfoByUserName: UserGetInfoByUserName = {
     target: 'userName',
@@ -26,6 +28,15 @@ export const find = async (name: string | undefined): Promise<void> => {
   };
 
   const userData = await userGetInfoService.handle(userGetInfoByUserName);
-  console.log(JSON.stringify(userData));
-  return;
+  return userData;
+};
+
+export const find = async (name: string | undefined): Promise<void> => {
+  if (name === undefined) {
+    const result = await findAllUsers();
+    console.log(JSON.stringify(result));
+  } else {
+    const result = await findUser(name);
+    console.log(JSON.stringify(result));
+  }
 };

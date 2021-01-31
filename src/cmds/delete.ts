@@ -4,11 +4,10 @@ import {
 } from 'Application/User/UserGetInfoService';
 import { UserDeleteCommand } from '../Application/User/UserDeleteCommand';
 import { UserDeleteService } from '../Application/User/UserDeleteService';
-
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 
-export const deleteCmd = async (name: string): Promise<void> => {
+export const deleteUser = async (name: string): Promise<void> => {
   const userGetInfoService: UserGetInfoService = container.resolve(
     UserGetInfoService,
   );
@@ -25,4 +24,8 @@ export const deleteCmd = async (name: string): Promise<void> => {
   const userDeleteCommand = new UserDeleteCommand(user.id);
 
   await userDeleteService.handle(userDeleteCommand);
+};
+
+export const deleteCmd = async (name: string): Promise<void> => {
+  await deleteUser(name);
 };
