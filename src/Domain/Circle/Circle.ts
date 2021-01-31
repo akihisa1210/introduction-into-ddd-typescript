@@ -103,7 +103,7 @@ export class Circle {
       throw new Error('Member is null.');
     }
     if (this.members.length >= 29) {
-      throw new Error('Circle is already full.');
+      throw new Error('Circle members are more than 29.');
     }
 
     this.members.push(member);
