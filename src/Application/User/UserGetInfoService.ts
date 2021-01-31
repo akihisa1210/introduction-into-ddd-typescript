@@ -74,7 +74,7 @@ export class UserGetInfoService {
         return userData as returnType<T>;
       }
       default:
-        throw new Error('userId of userName must be specified.');
+        throw new Error('Invalid target.');
     }
   }
 }

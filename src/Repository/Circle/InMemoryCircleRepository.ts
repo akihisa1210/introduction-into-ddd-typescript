@@ -12,8 +12,6 @@ export class InMemoryCircleRepository implements ICircleRepository {
   }
 
   public async save(circle: Circle): Promise<void> {
-    console.log('circles:', this.circles);
-
     const existingCircleIndex = this.circles.findIndex(
       (existingCircle) => existingCircle.id === circle.id,
     );
@@ -21,7 +19,6 @@ export class InMemoryCircleRepository implements ICircleRepository {
     // Register a new circle
     if (existingCircleIndex === -1) {
       this.circles.push(circle);
-      console.log('circles:', this.circles);
       return new Promise((resolve) => resolve());
     }
 
@@ -33,8 +30,6 @@ export class InMemoryCircleRepository implements ICircleRepository {
   }
 
   public async findById(id: CircleId): Promise<Circle | null> {
-    console.log('circles:', this.circles);
-
     const target = this.circles.find((circle) => circle.id.value === id.value);
     if (target !== undefined) {
       return new Promise((resolve) => resolve(target));
@@ -43,8 +38,6 @@ export class InMemoryCircleRepository implements ICircleRepository {
   }
 
   public findByName(name: CircleName): Promise<Circle | null> {
-    console.log('circles:', this.circles);
-
     const target = this.circles.find(
       (circle) => circle.name.value === name.value,
     );
@@ -52,5 +45,11 @@ export class InMemoryCircleRepository implements ICircleRepository {
       return new Promise((resolve) => resolve(target));
     }
     return new Promise((resolve) => resolve(null));
+  }
+
+  public findAll(): Promise<Circle[]> {
+    return new Promise((resolve) => {
+      resolve(this.circles);
+    });
   }
 }

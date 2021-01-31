@@ -31,11 +31,7 @@ export class CircleJoinService {
       throw new Error('Circle not found.');
     }
 
-    if (circle.members.length >= 29) {
-      throw new Error('Circle member is more than 30 except its owner.');
-    }
-
-    circle.members.push(member);
+    circle.join(member);
     this.circleRepository.save(circle);
   }
 }
