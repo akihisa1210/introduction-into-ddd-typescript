@@ -1,4 +1,5 @@
 import { User } from 'Domain/User/User';
+import { CircleFullSpecification } from './CircleFullSpacification';
 
 export class CircleId {
   private _value: string;
@@ -99,15 +100,13 @@ export class Circle {
     return this.members.length + 1;
   }
 
-  isFull(): boolean {
-    return this.countMembers() >= 30;
-  }
-
   join(member: User): void {
     if (member === null) {
       throw new Error('Member is null.');
     }
-    if (this.isFull()) {
+
+    const circleFullSpacification = new CircleFullSpecification();
+    if (circleFullSpacification.isSatisfiedBy(this)) {
       throw new Error('Circle members are more than 29.');
     }
 
