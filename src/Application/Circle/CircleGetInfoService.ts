@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
+import { ICircleRepository } from 'Domain/Circle/ICircleRepository';
 import { CircleData } from './CircleData';
 
 export type CircleGetInfoAll = {

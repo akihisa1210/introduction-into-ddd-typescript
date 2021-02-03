@@ -1,4 +1,4 @@
-import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
+import { ICircleRepository } from 'Domain/Circle/ICircleRepository';
 import { inject, injectable } from 'tsyringe';
 import { Circle } from './Circle';
 

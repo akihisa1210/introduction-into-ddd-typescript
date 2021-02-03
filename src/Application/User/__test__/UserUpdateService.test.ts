@@ -1,5 +1,5 @@
 import { container } from 'tsyringe';
-import { IUserRepository } from 'Repository/User/IUserRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { UserUpdateService } from '../UserUpdateService';
 import { UserUpdateCommand } from '../UserUpdateCommand';
 import { User } from 'Domain/User/User';

@@ -1,6 +1,6 @@
 import { UserName } from 'Domain/User/UserName';
 import { UserService } from 'Domain/User/UserService';
-import { IUserRepository } from 'Repository/User/IUserRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { container } from 'tsyringe';
 import { IUserFactory } from '../IUserFactory';
 

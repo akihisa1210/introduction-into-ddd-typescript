@@ -1,6 +1,6 @@
 import { deleteUser } from 'cmds/delete';
 import { container } from 'tsyringe';
-import { IUserRepository } from 'Repository/User/IUserRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { UserName } from 'Domain/User/UserName';
 import { IUserFactory } from 'Domain/User/IUserFactory';
 

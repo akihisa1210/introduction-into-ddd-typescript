@@ -1,6 +1,6 @@
 import { addUser } from 'cmds/add';
 import { container } from 'tsyringe';
-import { IUserRepository } from 'Repository/User/IUserRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { UserName } from 'Domain/User/UserName';
 
 beforeEach(() => {

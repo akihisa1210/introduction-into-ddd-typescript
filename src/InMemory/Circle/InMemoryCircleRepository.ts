@@ -1,5 +1,5 @@
 import { singleton } from 'tsyringe';
-import { ICircleRepository } from './ICircleRepository';
+import { ICircleRepository } from '../../Domain/Circle/ICircleRepository';
 import { Circle, CircleId, CircleName } from 'Domain/Circle/Circle';
 
 @singleton()
