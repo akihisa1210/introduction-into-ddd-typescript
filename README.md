@@ -2,7 +2,13 @@
 
 成瀬允宣『ドメイン駆動設計入門 ボトムアップでわかる！ドメイン駆動設計の基本』（翔泳社、2020）のサンプルコードを TypeScript で実装します。
 
-## Run App on Docker
+## Build
+
+```
+npm run build
+```
+
+## Run App
 
 ```
 docker-compose up -d
@@ -11,23 +17,40 @@ cd src
 npm i
 ```
 
-## CLI
+## Use CLI
 
 ```
 docker-compose up -d
 docker-compose exec node bash
-cd src
-npx ts-node -r tsconfig-paths/register cli-user.ts
+
+# Help
+node src/dist/main.js
 
 # Add user
-npx ts-node -r tsconfig-paths/register cli-user.ts add <userName>
+node src/dist/main.js add <userName>
 
 # View user
-npx ts-node -r tsconfig-paths/register cli-user.ts find [userId]
+node src/dist/main.js find [userName]
 
 # Update user
-npx ts-node -r tsconfig-paths/register cli-user.ts update <userId> <userName>
+node src/dist/main.js update <userName> <userName>
 
 # Delete user
-npx ts-node -r tsconfig-paths/register cli-user.ts delete <userId>
+node src/dist/main.js delete <userName>
+```
+
+## Test
+
+### Unit Test
+
+```
+npm test
+```
+
+### CLI E2E Test
+
+```
+docker-compose up -d
+docker-compose exec node bash
+npm test:cli
 ```
