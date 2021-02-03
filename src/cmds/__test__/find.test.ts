@@ -1,7 +1,7 @@
 import { findUser } from 'cmds/find';
 import { findAllUsers } from 'cmds/find';
 import { container } from 'tsyringe';
-import { IUserRepository } from 'Repository/User/IUserRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { UserName } from 'Domain/User/UserName';
 import { IUserFactory } from 'Domain/User/IUserFactory';
 

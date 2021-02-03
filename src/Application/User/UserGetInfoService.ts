@@ -1,4 +1,4 @@
-import { IUserRepository } from '../../Repository/User/IUserRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { UserData } from './UserData';
 import { UserId } from '../../Domain/User/UserId';
 import { injectable, inject } from 'tsyringe';

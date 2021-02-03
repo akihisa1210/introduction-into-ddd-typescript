@@ -1,5 +1,5 @@
 import { container } from 'tsyringe';
-import { IUserRepository } from 'Repository/User/IUserRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { User } from 'Domain/User/User';
 import { UserDeleteCommand } from 'Application/User/UserDeleteCommand';
 import { UserDeleteService } from '../UserDeleteService';

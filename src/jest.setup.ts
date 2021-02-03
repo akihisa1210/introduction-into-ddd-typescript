@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { container } from 'tsyringe';
 import { UserFactory } from 'Domain/User/UserFactory';
-import { InMemoryUserRepository } from './Repository/User/InMemoryUserRepository';
+import { InMemoryUserRepository } from './InMemory/User/InMemoryUserRepository';
 import { CircleFactory } from 'Domain/Circle/CircleFactory';
-import { InMemoryCircleRepository } from 'Repository/Circle/InMemoryCircleRepository';
+import { InMemoryCircleRepository } from 'InMemory/Circle/InMemoryCircleRepository';
 
 export const setup = (): void => {
   // User

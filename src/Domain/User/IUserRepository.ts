@@ -1,6 +1,6 @@
-import { User } from '../../Domain/User/User';
-import { UserId } from '../../Domain/User/UserId';
-import { UserName } from '../../Domain/User/UserName';
+import { User } from './User';
+import { UserId } from './UserId';
+import { UserName } from './UserName';
 
 export type IUserRepository = {
   save(user: User): Promise<void>;

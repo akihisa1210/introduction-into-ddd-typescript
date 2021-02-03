@@ -1,7 +1,7 @@
 import { UserRegisterCommand } from 'Application/User/UserRegisterCommand';
 import { UserRegisterService } from 'Application/User/UserRegisterService';
 import { CircleName } from 'Domain/Circle/Circle';
-import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
+import { ICircleRepository } from 'Domain/Circle/ICircleRepository';
 import { container } from 'tsyringe';
 import { CircleCreateCommand } from '../CircleCreateCommand';
 import { CircleCreateService } from '../CircleCreateService';

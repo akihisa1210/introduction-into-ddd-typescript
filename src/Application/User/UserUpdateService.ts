@@ -1,4 +1,4 @@
-import { IUserRepository } from '../../Repository/User/IUserRepository';
+import { IUserRepository } from '../../Domain/User/IUserRepository';
 import { User } from '../../Domain/User/User';
 import { UserId } from '../../Domain/User/UserId';
 import { UserName } from '../../Domain/User/UserName';

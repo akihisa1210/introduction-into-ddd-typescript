@@ -1,7 +1,7 @@
 import { CircleId } from 'Domain/Circle/Circle';
 import { UserId } from 'Domain/User/UserId';
-import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
-import { IUserRepository } from 'Repository/User/IUserRepository';
+import { ICircleRepository } from 'Domain/Circle/ICircleRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { inject, injectable } from 'tsyringe';
 import { CircleJoinCommand } from './CircleJoinCommand';
 

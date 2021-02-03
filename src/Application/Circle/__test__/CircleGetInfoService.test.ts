@@ -5,10 +5,10 @@ import {
 } from '../CircleGetInfoService';
 import { UserName } from 'Domain/User/UserName';
 import { IUserFactory } from 'Domain/User/IUserFactory';
-import { IUserRepository } from 'Repository/User/IUserRepository';
+import { IUserRepository } from 'Domain/User/IUserRepository';
 import { ICircleFactory } from 'Domain/Circle/ICircleFactory';
 import { CircleName } from 'Domain/Circle/Circle';
-import { ICircleRepository } from 'Repository/Circle/ICircleRepository';
+import { ICircleRepository } from 'Domain/Circle/ICircleRepository';
 
 beforeEach(() => {
   container.clearInstances();
